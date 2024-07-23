@@ -14,7 +14,7 @@ export default [
   {
     rules: {
       'react/react-in-jsx-scope': 'off',
-      'react/jsx-no-target-blank': ['warn', { allowReferrer: true }]
+      'react/jsx-no-target-blank': 'off'
     }
   }
 ]
