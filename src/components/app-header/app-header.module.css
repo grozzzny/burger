@@ -1,0 +1,34 @@
+.navItem{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    color: var(--secondary);
+    padding: 0 20px;
+    height: 56px;
+    text-decoration: none;
+    border-radius: 40px;
+}
+.navItemActive{
+    color: var(--white);
+}
+.menu{
+    display: flex;
+}
+.logo{
+    text-align: center;
+}
+.content{
+    width: var(--content-width);
+    margin: auto;
+}
+.leftButtons{
+    display: flex;
+    margin-right: auto;
+    flex: 1;
+}
+.rightButtons{
+    display: flex;
+    margin-left: auto;
+    flex: 1;
+}

@@ -1,0 +1,11 @@
+.items {
+  display: flex;
+  gap: 24px;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.items > * {
+  margin-bottom: 32px;
+  flex: 0 1 calc(50% - 24px);
+}
