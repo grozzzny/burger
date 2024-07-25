@@ -13,8 +13,10 @@
 }
 .fixedBlock{
     grid-row: 1;
+    overflow: hidden;
 }
 .scrollableBlock{
+    overflow-x: hidden;
     overflow-y: auto;
     grid-row: 2;
 }

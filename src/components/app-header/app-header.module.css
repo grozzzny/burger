@@ -1,12 +1,15 @@
-.navButton{
+.navItem{
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 8px;
     color: var(--secondary);
     padding: 0 20px;
+    height: 56px;
+    text-decoration: none;
+    border-radius: 40px;
 }
-.navButtonActive{
+.navItemActive{
     color: var(--white);
 }
 .menu{

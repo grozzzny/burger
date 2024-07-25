@@ -46,6 +46,14 @@ export const BurgerIngredients: React.FC = () => {
               <IngredientItem key={item._id} item={item} />
             ))}
         </IngredientsGroup>
+        <IngredientsGroup label={'Начинки'}>
+          {data
+            .filter((item) => item.type === 'main')
+            .slice(0, 4)
+            .map((item) => (
+              <IngredientItem key={item._id} item={item} />
+            ))}
+        </IngredientsGroup>
       </div>
     </div>
   )

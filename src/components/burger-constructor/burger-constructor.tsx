@@ -10,7 +10,7 @@ export const BurgerConstructor: React.FC = () => {
   return (
     <div className={`${styles.content} mt-25 pl-4`}>
       <div className={`${styles.top} mb-4`}>
-        <BurgerElement type="top" key={itemMain._id} item={itemMain} isLocked={true} />
+        <BurgerElement type="top" item={itemMain} isLocked={true} />
       </div>
       <div className={`${styles.center} mb-4`}>
         {data
@@ -20,7 +20,7 @@ export const BurgerConstructor: React.FC = () => {
           ))}
       </div>
       <div className={styles.bottom}>
-        <BurgerElement type="bottom" key={itemMain._id + '_'} item={itemMain} isLocked={true} />
+        <BurgerElement type="bottom" item={itemMain} isLocked={true} />
       </div>
       <CheckoutButton price={610}/>
     </div>
