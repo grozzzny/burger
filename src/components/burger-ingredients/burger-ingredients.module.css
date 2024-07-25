@@ -1,0 +1,20 @@
+.content{
+    display: grid;
+    grid-template-rows: auto 1fr;
+    overflow: hidden;
+    height: calc(100vh - 146px);
+}
+.heading{
+    margin-top: 40px;
+}
+.tabs{
+    margin-bottom: 40px;
+    display: flex;
+}
+.fixedBlock{
+    grid-row: 1;
+}
+.scrollableBlock{
+    overflow-y: auto;
+    grid-row: 2;
+}
