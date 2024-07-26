@@ -1,0 +1,19 @@
+.order {
+  text-align: center;
+}
+.number {
+  margin-top: 80px;
+  text-shadow:
+    0 0 20px rgba(51, 51, 255, 0.6),
+    0 0 50px rgba(51, 51, 255, 0.4),
+    0 0 100px rgba(51, 51, 255, 0.2);
+}
+.label {
+}
+.image {
+}
+.text1 {
+}
+.text2 {
+  color: var(--secondary);
+}

@@ -2,8 +2,8 @@ import React from 'react'
 import styles from './burger-ingredients.module.css'
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import { IngredientItem, IngredientsGroup } from '@/components'
-import data from '@/utils/data'
-import { ITEM_MAIN_ID } from '@/constants'
+import { ITEM_MAIN_NAME } from '@/constants'
+import { Item } from '@/types'
 
 enum Tabs {
   Buns = 'buns',
@@ -11,7 +11,11 @@ enum Tabs {
   Fillings = 'fillings'
 }
 
-export const BurgerIngredients: React.FC = () => {
+interface BurgerIngredientsProps {
+  items: Item[]
+}
+
+export const BurgerIngredients: React.FC<BurgerIngredientsProps> = ({ items }) => {
   const [current, setCurrent] = React.useState<Tabs>(Tabs.Buns)
   return (
     <div className={styles.content}>
@@ -31,15 +35,15 @@ export const BurgerIngredients: React.FC = () => {
       </div>
       <div className={styles.scrollableBlock}>
         <IngredientsGroup label={'Булки'}>
-          {data
+          {items
             .filter((item) => item.type === 'bun')
             .slice(0, 2)
             .map((item) => (
-              <IngredientItem count={item._id === ITEM_MAIN_ID ? 1 : undefined} key={item._id} item={item} />
+              <IngredientItem count={item._id === ITEM_MAIN_NAME ? 1 : undefined} key={item._id} item={item} />
             ))}
         </IngredientsGroup>
         <IngredientsGroup label={'Соусы'}>
-          {data
+          {items
             .filter((item) => item.type === 'sauce')
             .slice(0, 4)
             .map((item) => (
@@ -47,7 +51,7 @@ export const BurgerIngredients: React.FC = () => {
             ))}
         </IngredientsGroup>
         <IngredientsGroup label={'Начинки'}>
-          {data
+          {items
             .filter((item) => item.type === 'main')
             .slice(0, 4)
             .map((item) => (

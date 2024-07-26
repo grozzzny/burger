@@ -14,3 +14,5 @@ export type Item = {
   image_large: string
   __v: number
 }
+
+export type NotificationType = 'warning' | 'success' | 'error' | 'info'

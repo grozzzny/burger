@@ -1,8 +1,14 @@
 :root {
   --background: #131316;
+  --background-modal: #1C1C21;
   --white: white;
-  --secondary: #8585AD;
+  --secondary: #8585ad;
   --content-width: 1280px;
+  --color-warning: #f0ad4e4a;
+  --color-success: #5cb85c4a;
+  --color-error: #ff00004a;
+  --color-info: #5bc0de4a;
+  --overlay-background: rgba(0, 0, 0, 0.7);
 }
 body {
   background-color: var(--background);
@@ -12,15 +18,16 @@ body {
   height: 100vh;
   overflow: hidden;
 }
-#root, main{
+#root,
+main {
   /*height: 100%;*/
 }
-.ml-a{
+.ml-a {
   margin-left: auto;
 }
-.mr-a{
+.mr-a {
   margin-right: auto;
 }
-*{
+* {
   box-sizing: border-box;
 }
