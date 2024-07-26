@@ -1,23 +1,27 @@
-.card{
-    position: relative;
+.card {
+  position: relative;
+  cursor: pointer;
+  transition: opacity 0.2s ease-in;
 }
-.count{
-    position: absolute;
-    right: 0;
-    top: 0;
+.card:hover {
+  opacity: 0.7;
 }
-.preview{
-
+.count {
+  position: absolute;
+  right: 0;
+  top: 0;
 }
-.price{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 6px;
+.preview {
 }
-.name{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+.price {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+}
+.name {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }

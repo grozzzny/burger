@@ -6,3 +6,8 @@ export { IngredientItem } from './burger-ingredients/ingredient-item/ingredient-
 export { IngredientsGroup } from './burger-ingredients/ingredients-group/ingredients-group'
 export { BurgerElement } from './burger-constructor/burger-element/burger-element'
 export { CheckoutButton } from './burger-constructor/checkout-button/checkout-button'
+export { Notification } from './notification'
+export { Loading } from './loading'
+export { ModalOverlay } from './modal/modal-overlay'
+export { Modal } from './modal'
+export { OrderDetails } from './burger-constructor/order-details'

@@ -1,30 +1,34 @@
-# React + TypeScript + Vite
+# Stellar Burgers
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Добро пожаловать в проект "Stellar Burgers"! Этот проект представляет собой веб-приложение для бургерной на краю Вселенной, созданное с использованием React и TypeScript с целью обучения в рамках курса React от Yandex Practicum. 
 
-Currently, two official plugins are available:
+## Установка проекта из репозитория
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Проект доступен на GitHub по следующей ссылке: [Stellar Burgers](https://github.com/grozzzny/burger).
 
-## Expanding the ESLint configuration
+Для установки проекта выполните следующие шаги:
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+1. Клонируйте репозиторий:
+   ```bash
+   git clone https://github.com/grozzzny/burger.git
+   ```
+2. Перейдите в директорию проекта:
+   ```bash
+   cd burger
+   ```
+3. Установите зависимости:
+   ```bash
+   npm install
+   ```
+4. Задайте ENV переменные:
+   ```bash
+   API_URI=https://norma.nomoreparties.space/api
+   ```
 
-- Configure the top-level `parserOptions` property like this:
+## Проделана работа на 1 спринте. Step 1
+- Организация файловой структуры
+- Вёрстка первого экрана проекта
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Проделана работа на 1 спринте. Step 2
+- Подключение к API
+- Реализованы компоненты модального окна
