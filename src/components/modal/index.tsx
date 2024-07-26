@@ -1,11 +1,10 @@
-import React, { ReactNode, useEffect } from 'react'
+import React, { PropsWithChildren, useEffect } from 'react'
 import ReactDOM from 'react-dom'
 import styles from './index.module.css'
 import { ModalOverlay } from '@/components'
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 
-interface ModalProps {
-  children: ReactNode
+interface ModalProps extends PropsWithChildren {
   onClose: () => void
 }
 

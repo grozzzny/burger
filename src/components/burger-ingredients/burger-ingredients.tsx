@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import styles from './burger-ingredients.module.css'
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import { IngredientItem, IngredientsGroup } from '@/components'
@@ -17,6 +17,9 @@ interface BurgerIngredientsProps {
 
 export const BurgerIngredients: React.FC<BurgerIngredientsProps> = ({ items }) => {
   const [current, setCurrent] = React.useState<Tabs>(Tabs.Buns)
+  const itemsBun = useMemo(() => items.filter((item) => item.type === 'bun').slice(0, 2), [items])
+  const itemsSauce = useMemo(() => items.filter((item) => item.type === 'sauce').slice(0, 2), [items])
+  const itemsMain = useMemo(() => items.filter((item) => item.type === 'main').slice(0, 4), [items])
   return (
     <div className={styles.content}>
       <div className={styles.fixedBlock}>
@@ -35,28 +38,19 @@ export const BurgerIngredients: React.FC<BurgerIngredientsProps> = ({ items }) =
       </div>
       <div className={styles.scrollableBlock}>
         <IngredientsGroup label={'Булки'}>
-          {items
-            .filter((item) => item.type === 'bun')
-            .slice(0, 2)
-            .map((item) => (
-              <IngredientItem count={item._id === ITEM_MAIN_NAME ? 1 : undefined} key={item._id} item={item} />
-            ))}
+          {itemsBun.map((item) => (
+            <IngredientItem count={item._id === ITEM_MAIN_NAME ? 1 : undefined} key={item._id} item={item} />
+          ))}
         </IngredientsGroup>
         <IngredientsGroup label={'Соусы'}>
-          {items
-            .filter((item) => item.type === 'sauce')
-            .slice(0, 4)
-            .map((item) => (
-              <IngredientItem key={item._id} item={item} />
-            ))}
+          {itemsSauce.map((item) => (
+            <IngredientItem key={item._id} item={item} />
+          ))}
         </IngredientsGroup>
         <IngredientsGroup label={'Начинки'}>
-          {items
-            .filter((item) => item.type === 'main')
-            .slice(0, 4)
-            .map((item) => (
-              <IngredientItem key={item._id} item={item} />
-            ))}
+          {itemsMain.map((item) => (
+            <IngredientItem key={item._id} item={item} />
+          ))}
         </IngredientsGroup>
       </div>
     </div>
