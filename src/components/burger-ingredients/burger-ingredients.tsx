@@ -59,7 +59,7 @@ export const BurgerIngredients: React.FC<BurgerIngredientsProps> = ({ items }) =
         <h2 className={`${styles.heading} text text_type_main-large mb-5`}>Соберите бургер</h2>
         <div className={styles.tabs}>
           {Object.keys(refs).map((tab) => (
-            <Tab value={tab} active={current === tab} onClick={onTabClick}>
+            <Tab key={tab} value={tab} active={current === tab} onClick={onTabClick}>
               {labels[tab as TabEnum]}
             </Tab>
           ))}
@@ -67,7 +67,7 @@ export const BurgerIngredients: React.FC<BurgerIngredientsProps> = ({ items }) =
       </div>
       <div className={styles.scrollableBlock} onScroll={handleScroll}>
         {Object.entries(refs).map(([tab, ref]) => (
-          <IngredientsGroup tab={tab as TabEnum} refSection={ref} label={labels[tab as TabEnum]}>
+          <IngredientsGroup key={tab} tab={tab as TabEnum} refSection={ref} label={labels[tab as TabEnum]}>
             {itemsSort[tab as TabEnum].map((item) => (
               <IngredientItem key={item._id} item={item} />
             ))}

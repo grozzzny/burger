@@ -15,14 +15,14 @@ interface DragItem {
   type: string
 }
 
-const ITEM_TYPE_CARD = 'card'
+const DND_TARGET_TYPE_CARD = 'card'
 
 const withDrag = <P extends BurgerElementProps>(Component: React.ComponentType<P>) => {
   return (props: P & WithDragProps) => {
     const { moveCard, index } = props
     const ref = useRef<HTMLDivElement>(null)
     const [{}, drop] = useDrop<DragItem, void, { handlerId: Identifier | null }>({
-      accept: ITEM_TYPE_CARD,
+      accept: DND_TARGET_TYPE_CARD,
       collect(monitor) {
         return {
           handlerId: monitor.getHandlerId()
@@ -78,7 +78,7 @@ const withDrag = <P extends BurgerElementProps>(Component: React.ComponentType<P
     })
 
     const [{ isDragging }, drag] = useDrag({
-      type: ITEM_TYPE_CARD,
+      type: DND_TARGET_TYPE_CARD,
       item: () => {
         return { id: props.item._id, index }
       },
