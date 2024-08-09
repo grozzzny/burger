@@ -1,11 +1,11 @@
 import React, { CSSProperties, RefObject } from 'react'
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import { Item } from '@/types'
+import { Ingredient } from '@/types'
 import styles from './burger-element.module.css'
 import withDrag from './with-drag'
 
 export interface BurgerElementProps {
-  item: Item
+  item: Ingredient
   isLocked: boolean
   type?: 'top' | 'bottom'
   isDrag?: boolean

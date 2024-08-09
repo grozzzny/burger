@@ -3,11 +3,11 @@ import React, { useCallback, useState } from 'react'
 import styles from './burger-constructor.module.css'
 import { BurgerElement, BurgerElementWithDrag, CheckoutButton, Modal, OrderDetails } from '@/components'
 import { ITEM_MAIN_NAME } from '@/constants'
-import { Item } from '@/types'
+import { Ingredient } from '@/types'
 import { useDrop } from 'react-dnd'
 
 interface BurgerConstructorProps {
-  items: Item[]
+  items: Ingredient[]
 }
 
 export const DND_TARGET_TYPE_BOX = 'box'
@@ -16,7 +16,7 @@ export const BurgerConstructor: React.FC<BurgerConstructorProps> = ({ items }) =
   const [visible, setVisible] = useState<boolean>(false)
   const itemMain = items.find((item) => item.name === ITEM_MAIN_NAME)
   const ingredients = items.filter((item) => item.name !== ITEM_MAIN_NAME)
-  const [cards, setCards] = useState<Item[]>(ingredients)
+  const [cards, setCards] = useState<Ingredient[]>(ingredients)
 
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
     accept: DND_TARGET_TYPE_BOX,
@@ -30,11 +30,11 @@ export const BurgerConstructor: React.FC<BurgerConstructorProps> = ({ items }) =
   console.log('isActive', isActive)
 
   const moveCard = useCallback((dragIndex: number, hoverIndex: number) => {
-    setCards((prevCards: Item[]) =>
+    setCards((prevCards: Ingredient[]) =>
       update(prevCards, {
         $splice: [
           [dragIndex, 1],
-          [hoverIndex, 0, prevCards[dragIndex] as Item]
+          [hoverIndex, 0, prevCards[dragIndex] as Ingredient]
         ]
       })
     )

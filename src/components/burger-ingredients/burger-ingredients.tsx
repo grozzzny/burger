@@ -2,7 +2,7 @@ import React, { RefObject, useCallback, useMemo, useRef } from 'react'
 import styles from './burger-ingredients.module.css'
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import { IngredientItem, IngredientsGroup } from '@/components'
-import { Item } from '@/types'
+import { Ingredient } from '@/types'
 
 export enum TabEnum {
   Buns = 'buns',
@@ -11,7 +11,7 @@ export enum TabEnum {
 }
 
 interface BurgerIngredientsProps {
-  items: Item[]
+  items: Ingredient[]
 }
 
 const labels: Record<TabEnum, string> = {
@@ -29,7 +29,7 @@ export const BurgerIngredients: React.FC<BurgerIngredientsProps> = ({ items }) =
     [TabEnum.Fillings]: useRef<HTMLDivElement>(null)
   }
 
-  const itemsSort: Record<TabEnum, Item[]> = useMemo(() => {
+  const itemsSort: Record<TabEnum, Ingredient[]> = useMemo(() => {
     return {
       [TabEnum.Buns]: items.filter((item) => item.type === 'bun'),
       [TabEnum.Sauces]: items.filter((item) => item.type === 'sauce'),

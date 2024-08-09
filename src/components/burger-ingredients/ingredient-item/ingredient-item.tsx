@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import styles from './ingredient-item.module.css'
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import { Item } from '@/types'
+import { Ingredient } from '@/types'
 import { IngredientDetails, Modal } from '@/components'
 import { useDrag } from 'react-dnd'
 import { DND_TARGET_TYPE_BOX } from '@/components/burger-constructor/burger-constructor'
 
 interface IngredientItemProps {
-  item: Item
+  item: Ingredient
   count?: number
 }
 

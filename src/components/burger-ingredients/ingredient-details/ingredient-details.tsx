@@ -1,9 +1,9 @@
 import React from 'react'
-import { Item } from '@/types'
+import { Ingredient } from '@/types'
 import styles from './ingredient-details.module.css'
 
 interface IngredientDetailsProps {
-  item: Item
+  item: Ingredient
 }
 
 export const IngredientDetails: React.FC<IngredientDetailsProps> = ({ item }) => {

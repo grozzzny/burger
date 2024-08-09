@@ -1,10 +1,10 @@
 import BaseApi from '@/api/BaseApi'
-import { Item } from '@/types'
+import { Ingredient } from '@/types'
 
 export default class IngredientsApi extends BaseApi {
-  async fetchItems(options: RequestInit = {}): Promise<Item[]> {
+  async fetchItems(options: RequestInit = {}): Promise<Ingredient[]> {
     const { data } = await this.get<{
-      data: Item[]
+      data: Ingredient[]
       success: boolean
     }>(`/ingredients`, options)
     return data

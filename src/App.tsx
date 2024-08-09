@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react'
 import styles from './app.module.css'
 import { AppHeader, BurgerConstructor, BurgerIngredients, Loading } from '@/components'
 import IngredientsApi from '@/api/IngredientsApi'
-import { Item } from '@/types'
+import { Ingredient } from '@/types'
 import { NotificationProvider, useNotification } from '@/providers/notification-provider'
 
 const Layout: React.FC = () => {
-  const [items, setItems] = useState<Item[]>([])
+  const [items, setItems] = useState<Ingredient[]>([])
   const [loading, setLoading] = useState<boolean>(false)
   const { notify } = useNotification()
 
