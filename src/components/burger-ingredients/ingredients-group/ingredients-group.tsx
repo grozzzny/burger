@@ -13,7 +13,7 @@ export const IngredientsGroup: React.FC<IngredientsGroupProps> = ({ tab, childre
   return (
     <section ref={refSection} data-tab={tab}>
       <h3 className={'text text_type_main-medium'}>{label}</h3>
-      <div className={`${styles.items} pt-6 pb-10 pl-4 pr-4`}>{children}</div>
+      <div className={`${styles.items} pt-6 pb-10 pl-4`}>{children}</div>
     </section>
   )
 }

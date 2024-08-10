@@ -11,10 +11,8 @@ const Layout: React.FC = () => {
       <AppHeader />
       <main>
         <div className={styles.container}>
-          <>
-            <BurgerIngredients />
-            <BurgerConstructor />
-          </>
+          <BurgerIngredients />
+          <BurgerConstructor />
         </div>
       </main>
     </>

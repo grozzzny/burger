@@ -33,15 +33,16 @@ const withDrag = <P extends BurgerElementProps>(Component: React.ComponentType<P
         if (!ref.current) return
         const dragIndex = item.index
         const hoverIndex = index
-        if (!hoverIndex || dragIndex === hoverIndex) return
+        if (dragIndex === hoverIndex) return
         const hoverBoundingRect = ref.current?.getBoundingClientRect()
         const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
         const clientOffset = monitor.getClientOffset()
         const hoverClientY = (clientOffset as XYCoord).y - hoverBoundingRect.top
         if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) return
         if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) return
-        moveElement(dragIndex, hoverIndex)
-        item.index = hoverIndex
+        const newHoverIndex = hoverClientY < hoverMiddleY && hoverIndex === 1 ? 0 : hoverIndex;
+        moveElement(dragIndex, newHoverIndex)
+        item.index = newHoverIndex
       }
     })
 
