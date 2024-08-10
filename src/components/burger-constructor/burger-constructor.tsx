@@ -13,6 +13,9 @@ import {
   updateIngredients
 } from '@/services/burger-constructor/reducer'
 import { useNotification } from '@/providers/notification-provider'
+import { calculateTotal, getArrayIds } from '@/utils/helper'
+import { getIds, getOrderId, getTotal, setIds, setOrderId, setTotal } from '@/services/order/reducer'
+import OrdersApi from '@/api/OrdersApi'
 
 interface BurgerConstructorProps {}
 
@@ -22,7 +25,17 @@ export const BurgerConstructor: React.FC<BurgerConstructorProps> = () => {
   const ingredients = useSelector(getIngredients)
   const bun = useSelector(getBun)
   const bunNotification = useSelector(getBunNotification)
+  const orderId = useSelector(getOrderId)
+  const ids = useSelector(getIds)
+  const total = useSelector(getTotal)
   const { notify } = useNotification()
+
+  useEffect(() => {
+    const total = calculateTotal(bun, ingredients)
+    dispatch(setTotal(total))
+    const ids = getArrayIds(bun, ingredients)
+    dispatch(setIds(ids))
+  }, [bun, ingredients, dispatch])
 
   useEffect(() => {
     if (bunNotification) {
@@ -49,6 +62,28 @@ export const BurgerConstructor: React.FC<BurgerConstructorProps> = () => {
     dispatch(removeIngredient({ key }))
   }, [])
 
+  const toggleModal = useCallback(
+    (open: boolean) => {
+      if (open) {
+        if (!bun) {
+          notify('error', 'Булка обязательна!')
+        } else {
+          new OrdersApi()
+            .create(ids)
+            .then((orderId) => {
+              dispatch(setOrderId(orderId))
+              setVisible(true)
+            })
+            .catch((err) => notify('error', err.message))
+        }
+      } else {
+        setVisible(false)
+        dispatch(setOrderId(0))
+      }
+    },
+    [bun, notify]
+  )
+
   return (
     <>
       <div className={`${styles.content} ${isActive ? styles.activeDrop : ''} mt-25 pl-4`} ref={drop}>
@@ -56,9 +91,7 @@ export const BurgerConstructor: React.FC<BurgerConstructorProps> = () => {
           {bun ? (
             <BurgerElement type="top" item={bun} isLocked={true} />
           ) : (
-            <div className={`${styles.selectBun} ml-8`}>
-              Выберите булку
-            </div>
+            <div className={`${styles.selectBun} ml-8`}>Выберите булку</div>
           )}
         </div>
         <div className={`${styles.center} mb-4`}>
@@ -77,16 +110,19 @@ export const BurgerConstructor: React.FC<BurgerConstructorProps> = () => {
             <div className={`${styles.selectElement} ml-8`}>Перенесите сюда ингредиенты</div>
           )}
         </div>
-        <div className={styles.bottom}> {bun ? (
-          <BurgerElement type="bottom" item={bun} isLocked={true} />
-        ) : (
-          <div className={`${styles.selectBunButtom} ml-8`}></div>
-        )}</div>
-        <CheckoutButton onClick={() => setVisible(true)} price={610} />
+        <div className={styles.bottom}>
+          {' '}
+          {bun ? (
+            <BurgerElement type="bottom" item={bun} isLocked={true} />
+          ) : (
+            <div className={`${styles.selectBunButtom} ml-8`}></div>
+          )}
+        </div>
+        <CheckoutButton onClick={() => toggleModal(true)} price={total} />
       </div>
       {visible && (
-        <Modal onClose={() => setVisible(false)}>
-          <OrderDetails orderId="034536" />
+        <Modal onClose={() => toggleModal(false)}>
+          <OrderDetails orderId={orderId} />
         </Modal>
       )}
     </>

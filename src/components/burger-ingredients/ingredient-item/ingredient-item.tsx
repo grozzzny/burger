@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import styles from './ingredient-item.module.css'
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { Ingredient, TargetType } from '@/types'
@@ -6,6 +6,7 @@ import { IngredientDetails, Modal } from '@/components'
 import { useDrag } from 'react-dnd'
 import { addIngredient, setBun } from '@/services/burger-constructor/reducer'
 import { useDispatch } from '@/services/store'
+import { selectIngredient } from '@/services/selected-ingredient/reducer'
 
 interface IngredientItemProps {
   item: Ingredient
@@ -15,6 +16,16 @@ interface IngredientItemProps {
 export const IngredientItem: React.FC<IngredientItemProps> = ({ item, count }) => {
   const [visible, setVisible] = useState<boolean>(false)
   const dispatch = useDispatch()
+
+  const toggleModal = useCallback((open: boolean) => {
+    if (open) {
+      setVisible(true)
+      dispatch(selectIngredient(item))
+    } else {
+      setVisible(false)
+      dispatch(selectIngredient(null))
+    }
+  }, [])
 
   const [{ isDragging }, drag] = useDrag(() => ({
     type: TargetType.BurgerConstructor,
@@ -39,7 +50,7 @@ export const IngredientItem: React.FC<IngredientItemProps> = ({ item, count }) =
 
   return (
     <>
-      <div ref={drag} style={{ opacity }} className={styles.card} onClick={() => setVisible(true)}>
+      <div ref={drag} style={{ opacity }} className={styles.card} onClick={() => toggleModal(true)}>
         {count && (
           <div className={styles.count}>
             <Counter count={count} size="default" />
@@ -57,7 +68,7 @@ export const IngredientItem: React.FC<IngredientItemProps> = ({ item, count }) =
         </div>
       </div>
       {visible && (
-        <Modal onClose={() => setVisible(false)}>
+        <Modal onClose={() => toggleModal(false)}>
           <IngredientDetails item={item} />
         </Modal>
       )}
