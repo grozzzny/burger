@@ -1,8 +1,12 @@
-import React, { RefObject, useCallback, useMemo, useRef } from 'react'
+import React, { RefObject, useCallback, useEffect, useRef } from 'react'
 import styles from './burger-ingredients.module.css'
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
-import { IngredientItem, IngredientsGroup } from '@/components'
+import { IngredientItem, IngredientsGroup, Loading } from '@/components'
 import { Ingredient } from '@/types'
+import { useNotification } from '@/providers/notification-provider'
+import { useDispatch, useSelector } from '@/services/store'
+import { getBunIngredients, getMainIngredients, getSauceIngredients } from '@/services/ingredients/reducer'
+import { loadIngredients } from '@/services/ingredients/actions'
 
 export enum TabEnum {
   Buns = 'buns',
@@ -10,9 +14,7 @@ export enum TabEnum {
   Fillings = 'fillings'
 }
 
-interface BurgerIngredientsProps {
-  items: Ingredient[]
-}
+interface BurgerIngredientsProps {}
 
 const labels: Record<TabEnum, string> = {
   [TabEnum.Buns]: 'Булки',
@@ -20,8 +22,19 @@ const labels: Record<TabEnum, string> = {
   [TabEnum.Fillings]: 'Начинки'
 }
 
-export const BurgerIngredients: React.FC<BurgerIngredientsProps> = ({ items }) => {
+export const BurgerIngredients: React.FC<BurgerIngredientsProps> = () => {
   const [current, setCurrent] = React.useState<TabEnum>(TabEnum.Buns)
+  const { notify } = useNotification()
+  const dispatch = useDispatch()
+  const { loading, error } = useSelector((state) => state.ingredients)
+
+  useEffect(() => {
+    dispatch(loadIngredients())
+  }, [])
+
+  useEffect(() => {
+    if (error) notify('error', error)
+  }, [error, notify])
 
   const refs: Record<TabEnum, RefObject<HTMLDivElement>> = {
     [TabEnum.Buns]: useRef<HTMLDivElement>(null),
@@ -29,13 +42,11 @@ export const BurgerIngredients: React.FC<BurgerIngredientsProps> = ({ items }) =
     [TabEnum.Fillings]: useRef<HTMLDivElement>(null)
   }
 
-  const itemsSort: Record<TabEnum, Ingredient[]> = useMemo(() => {
-    return {
-      [TabEnum.Buns]: items.filter((item) => item.type === 'bun'),
-      [TabEnum.Sauces]: items.filter((item) => item.type === 'sauce'),
-      [TabEnum.Fillings]: items.filter((item) => item.type === 'main')
-    }
-  }, [items])
+  const itemsSort: Record<TabEnum, Ingredient[]> = {
+    [TabEnum.Buns]: useSelector(getBunIngredients),
+    [TabEnum.Sauces]: useSelector(getSauceIngredients),
+    [TabEnum.Fillings]: useSelector(getMainIngredients)
+  }
 
   const onTabClick = useCallback((tab: string) => {
     setCurrent(tab as TabEnum)
@@ -52,6 +63,8 @@ export const BurgerIngredients: React.FC<BurgerIngredientsProps> = ({ items }) =
       }
     })
   }, [])
+
+  if (loading || error) return <Loading />
 
   return (
     <div className={styles.content}>
