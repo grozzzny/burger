@@ -29,7 +29,7 @@ export const BurgerConstructor: React.FC<BurgerConstructorProps> = () => {
       notify('info', bunNotification)
       dispatch(clearBunNotification())
     }
-  }, [bunNotification, dispatch])
+  }, [bunNotification, dispatch, notify])
 
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
     accept: TargetType.BurgerConstructor,
@@ -40,7 +40,6 @@ export const BurgerConstructor: React.FC<BurgerConstructorProps> = () => {
   }))
 
   const isActive = canDrop && isOver
-  if (isActive) console.log('isActive')
 
   const moveElement = useCallback((dragIndex: number, hoverIndex: number) => {
     dispatch(updateIngredients({ dragIndex, hoverIndex }))
@@ -52,21 +51,37 @@ export const BurgerConstructor: React.FC<BurgerConstructorProps> = () => {
 
   return (
     <>
-      <div className={`${styles.content} mt-25 pl-4`} ref={drop}>
-        <div className={`${styles.top} mb-4`}>{bun && <BurgerElement type="top" item={bun} isLocked={true} />}</div>
-        <div className={`${styles.center} mb-4`}>
-          {ingredients.map((item, index) => (
-            <BurgerElementWithDrag
-              removeElement={removeElement}
-              moveElement={moveElement}
-              index={index}
-              key={item.key}
-              item={item}
-              isLocked={false}
-            />
-          ))}
+      <div className={`${styles.content} ${isActive ? styles.activeDrop : ''} mt-25 pl-4`} ref={drop}>
+        <div className={`${styles.top} mb-4`}>
+          {bun ? (
+            <BurgerElement type="top" item={bun} isLocked={true} />
+          ) : (
+            <div className={`${styles.selectBun} ml-8`}>
+              Выберите булку
+            </div>
+          )}
         </div>
-        <div className={styles.bottom}>{bun && <BurgerElement type="bottom" item={bun} isLocked={true} />}</div>
+        <div className={`${styles.center} mb-4`}>
+          {ingredients.length > 0 ? (
+            ingredients.map((item, index) => (
+              <BurgerElementWithDrag
+                removeElement={removeElement}
+                moveElement={moveElement}
+                index={index}
+                key={item.key}
+                item={item}
+                isLocked={false}
+              />
+            ))
+          ) : (
+            <div className={`${styles.selectElement} ml-8`}>Перенесите сюда ингредиенты</div>
+          )}
+        </div>
+        <div className={styles.bottom}> {bun ? (
+          <BurgerElement type="bottom" item={bun} isLocked={true} />
+        ) : (
+          <div className={`${styles.selectBunButtom} ml-8`}></div>
+        )}</div>
         <CheckoutButton onClick={() => setVisible(true)} price={610} />
       </div>
       {visible && (
