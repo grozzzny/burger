@@ -1,4 +1,4 @@
-import React, { RefObject, useCallback, useEffect, useRef } from 'react'
+import React, { RefObject, useCallback, useEffect, useMemo, useRef } from 'react'
 import styles from './burger-ingredients.module.css'
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import { IngredientItem, IngredientsGroup, Loading } from '@/components'
@@ -7,6 +7,7 @@ import { useNotification } from '@/providers/notification-provider'
 import { useDispatch, useSelector } from '@/services/store'
 import { getBunIngredients, getMainIngredients, getSauceIngredients } from '@/services/ingredients/reducer'
 import { loadIngredients } from '@/services/ingredients/actions'
+import { getBun, getIngredients } from '@/services/burger-constructor/reducer'
 
 export enum TabEnum {
   Buns = 'buns',
@@ -26,6 +27,8 @@ export const BurgerIngredients: React.FC<BurgerIngredientsProps> = () => {
   const [current, setCurrent] = React.useState<TabEnum>(TabEnum.Buns)
   const { notify } = useNotification()
   const dispatch = useDispatch()
+  const ingredients = useSelector(getIngredients)
+  const bun = useSelector(getBun)
   const { loading, error } = useSelector((state) => state.ingredients)
 
   useEffect(() => {
@@ -64,6 +67,19 @@ export const BurgerIngredients: React.FC<BurgerIngredientsProps> = () => {
     })
   }, [])
 
+  const counts: Record<string, number> = useMemo( ()=> {
+    const ingredientCounts: Record<string, number> = {}
+    if (bun) ingredientCounts[bun._id] = 2
+    ingredients.forEach((ingredient) => {
+      if (ingredientCounts[ingredient._id]) {
+        ingredientCounts[ingredient._id] += 1
+      } else {
+        ingredientCounts[ingredient._id] = 1
+      }
+    })
+    return ingredientCounts
+  }, [ingredients, bun])
+
   if (loading || error) return <Loading />
 
   return (
@@ -82,7 +98,7 @@ export const BurgerIngredients: React.FC<BurgerIngredientsProps> = () => {
         {Object.entries(refs).map(([tab, ref]) => (
           <IngredientsGroup key={tab} tab={tab as TabEnum} refSection={ref} label={labels[tab as TabEnum]}>
             {itemsSort[tab as TabEnum].map((item) => (
-              <IngredientItem key={item._id} item={item} />
+              <IngredientItem count={counts[item._id]} key={item._id} item={item} />
             ))}
           </IngredientsGroup>
         ))}
