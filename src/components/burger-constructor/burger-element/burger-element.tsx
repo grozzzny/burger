@@ -11,6 +11,7 @@ export interface BurgerElementProps {
   isDrag?: boolean
   style?: CSSProperties
   refItem?: RefObject<HTMLDivElement>
+  handleClose?: () => void
 }
 
 export const BurgerElement: React.FC<BurgerElementProps> = ({
@@ -19,7 +20,8 @@ export const BurgerElement: React.FC<BurgerElementProps> = ({
   isLocked,
   type,
   style,
-  isDrag = false
+  isDrag = false,
+  handleClose
 }) => {
   let name = item.name
   if (type === 'top') name += ' (верх)'
@@ -31,6 +33,7 @@ export const BurgerElement: React.FC<BurgerElementProps> = ({
         extraClass="ml-8"
         type={type}
         isLocked={isLocked}
+        handleClose={handleClose}
         text={name}
         price={item.price}
         thumbnail={item.image}

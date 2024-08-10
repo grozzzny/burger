@@ -36,7 +36,7 @@ const Layout: React.FC = () => {
           ) : (
             <>
               <BurgerIngredients items={items} />
-              <BurgerConstructor items={items} />
+              <BurgerConstructor />
             </>
           )}
         </div>

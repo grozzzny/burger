@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import styles from './ingredient-item.module.css'
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import { Ingredient } from '@/types'
+import { Ingredient, TargetType } from '@/types'
 import { IngredientDetails, Modal } from '@/components'
 import { useDrag } from 'react-dnd'
-import { DND_TARGET_TYPE_BOX } from '@/components/burger-constructor/burger-constructor'
+import { addIngredient, setBun } from '@/services/burger-constructor/reducer'
+import { useDispatch } from '@/services/store'
 
 interface IngredientItemProps {
   item: Ingredient
@@ -13,14 +14,19 @@ interface IngredientItemProps {
 
 export const IngredientItem: React.FC<IngredientItemProps> = ({ item, count }) => {
   const [visible, setVisible] = useState<boolean>(false)
+  const dispatch = useDispatch()
 
   const [{ isDragging }, drag] = useDrag(() => ({
-    type: DND_TARGET_TYPE_BOX,
+    type: TargetType.BurgerConstructor,
     item,
     end: (item, monitor) => {
       const dropResult = monitor.getDropResult()
       if (item && dropResult) {
-        console.log({ item })
+        if (item.type === 'bun') {
+          dispatch(setBun(item))
+        } else {
+          dispatch(addIngredient(item))
+        }
       }
     },
     collect: (monitor) => ({

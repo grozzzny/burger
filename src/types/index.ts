@@ -1,9 +1,9 @@
-export type ItemType = 'bun' | 'main' | 'sauce'
+export type IngredientType = 'bun' | 'main' | 'sauce'
 
-export type Item = {
+export type Ingredient = {
   _id: string
   name: string
-  type: ItemType
+  type: IngredientType
   proteins: number
   fat: number
   carbohydrates: number
@@ -12,7 +12,13 @@ export type Item = {
   image: string
   image_mobile: string
   image_large: string
+  key?: string
   __v: number
 }
 
 export type NotificationType = 'warning' | 'success' | 'error' | 'info'
+
+export enum TargetType {
+  BurgerConstructor = 'burgerConstructor',
+  SortIngredient = 'sortIngredient'
+}
