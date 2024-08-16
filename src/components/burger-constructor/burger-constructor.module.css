@@ -22,3 +22,25 @@
   margin-bottom: 40px;
   overflow: hidden;
 }
+.selectBun, .selectElement, .selectBunButtom{
+  padding: 16px 24px;
+  border-radius: var(--common-border-radius-s);
+  background: var(--background-element);
+  min-height: 80px;
+  font-size: 16px;
+  line-height: 24px;
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 536px;
+}
+.selectBun{
+  border-radius: var(--top-constructor-item-border-radius);
+}
+.selectBunButtom{
+  border-radius: var(--bottom-constructor-item-border-radius);
+}
+.activeDrop .selectBun, .activeDrop .selectElement, .activeDrop .selectBunButtom{
+  opacity: .7;
+}

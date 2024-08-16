@@ -3,7 +3,7 @@ import styles from './index.module.css'
 import imageDone from '@/images/done.svg'
 
 interface OrderDetailsProps {
-  orderId: string
+  orderId: number
 }
 
 export const OrderDetails: React.FC<OrderDetailsProps> = ({ orderId }) => {
