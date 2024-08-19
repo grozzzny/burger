@@ -1,6 +1,7 @@
 import React from 'react'
 import { BurgerIcon, ListIcon, Logo, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './app-header.module.css'
+import { NavLink } from 'react-router-dom'
 
 export const AppHeader: React.FC = () => {
   return (
@@ -19,9 +20,9 @@ export const AppHeader: React.FC = () => {
             <Logo />
           </div>
           <div className={styles.rightButtons}>
-            <a href="#" className={`${styles.navItem} ml-a`}>
+            <NavLink to="/profile" className={`${styles.navItem} ml-a`}>
               <ProfileIcon type="secondary" /> <span className={'text text_type_main-default'}>Личный кабинет</span>
-            </a>
+            </NavLink>
           </div>
         </nav>
       </div>
