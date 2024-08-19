@@ -1,5 +1,4 @@
 import React from 'react'
-import styles from './app.module.css'
 import { AppHeader } from '@/components'
 import { NotificationProvider } from '@/providers/notification-provider'
 import { Route, Routes } from 'react-router-dom'
@@ -11,16 +10,14 @@ const Layout: React.FC = () => {
     <>
       <AppHeader />
       <main>
-        <div className={styles.container}>
-          <Routes>
-            <Route path="/" element={<HomePage />}/>
-            <Route path="/login" element={<LoginPage />}/>
-            <Route path="/register" element={<RegisterPage />}/>
-            <Route path="/reset-password" element={<ResetPasswordPage />}/>
-            <Route path="/forgot-password" element={<ForgotPasswordPage />}/>
-            <Route path="/protected" element={<ProtectedPageWithProtected isAuthenticated={false} />}/>
-          </Routes>
-        </div>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/reset-password" element={<ResetPasswordPage />} />
+          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+          <Route path="/protected" element={<ProtectedPageWithProtected isAuthenticated={false} />} />
+        </Routes>
       </main>
     </>
   )

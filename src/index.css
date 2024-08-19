@@ -1,9 +1,10 @@
 :root {
   --background: #131316;
-  --background-modal: #1C1C21;
+  --background-2: #1c1c21;
   --white: white;
   --secondary: #8585ad;
   --content-width: 1280px;
+  --color-link: #4c4cff;
   --color-warning: #f0ad4e4a;
   --color-success: #5cb85c4a;
   --color-error: #ff00004a;
@@ -30,4 +31,11 @@ main {
 }
 * {
   box-sizing: border-box;
+}
+a {
+  color: var(--color-link);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
 }

@@ -18,6 +18,13 @@
 .logo{
     text-align: center;
 }
+.header{
+    background-color: var(--background-2);
+    margin-left: -400px;
+    margin-right: -400px;
+    padding-left: 400px;
+    padding-right: 400px;
+}
 .content{
     width: var(--content-width);
     margin: auto;

@@ -4,7 +4,7 @@ import styles from './app-header.module.css'
 
 export const AppHeader: React.FC = () => {
   return (
-    <header>
+    <header className={styles.header}>
       <div className={styles.content}>
         <nav className={`${styles.menu} pt-4 pb-4`}>
           <div className={styles.leftButtons}>

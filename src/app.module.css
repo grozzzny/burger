@@ -10,3 +10,19 @@
 .container > *{
     width: 600px;
 }
+.authContainer{
+    display: flex;
+    justify-content: center;
+    padding-top: 180px;
+}
+.authContent{
+    width: 480px;
+    text-align: center;
+}
+.authFooter p{
+    color: var(--secondary);
+    font-size: 16px;
+}
+.authFooter a{
+    margin-left: 6px;
+}
