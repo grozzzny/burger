@@ -12,7 +12,7 @@ export const AppHeader: React.FC = () => {
             <NavLink to="/" className={`${styles.navItem} ${styles.navItemActive} text text_type_main-default mr-2`}>
               <BurgerIcon type="primary" /> Конструктор
             </NavLink>
-            <NavLink to="/orders" className={`${styles.navItem} text text_type_main-default text_color_inactive mr-a`}>
+            <NavLink to="/history" className={`${styles.navItem} text text_type_main-default text_color_inactive mr-a`}>
               <ListIcon type="secondary" /> Лента заказов
             </NavLink>
           </div>

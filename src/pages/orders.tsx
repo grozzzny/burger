@@ -1,23 +1,22 @@
 import React from 'react'
 import styles from '@/app.module.css'
 import withProtection from '@/pages/with-protection'
-import { ProfileForm } from '@/components/form'
 import { ProfileMenu } from '@/components'
 
-export const ProfilePage: React.FC = () => {
+export const OrdersPage: React.FC = () => {
   return (
     <div className={styles.profileContainer}>
       <div className={`${styles.profileLeftSide} mr-15`}>
         <ProfileMenu/>
         <div className={styles.profileFooter}>
-          <p className={'text text_type_main-default text_color_inactive'}>В этом разделе вы можете<br/> изменить свои персональные данные</p>
+          <p className={'text text_type_main-default text_color_inactive'}>В этом разделе вы можете<br/> увидеть список заказов</p>
         </div>
       </div>
       <div className={styles.profileRightSide}>
-        <ProfileForm />
+        OrdersPage
       </div>
     </div>
   )
 }
 
-export const ProfilePageWithProtected = withProtection(ProfilePage)
+export const OrdersPageWithProtected = withProtection(OrdersPage)

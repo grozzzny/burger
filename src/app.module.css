@@ -47,24 +47,6 @@
 .profileRightSide{
     text-align: center;
 }
-.profileMenu, .profileMenu li{
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-.profileMenu{
-    margin-bottom: 80px;
-}
-.profileMenu a{
-    color: var(--secondary);
-    height: 64px;
-    display: flex;
-    align-items: center;
-}
-.profileMenu a:hover{
-    color: white;
-    text-decoration: none;
-}
 .profileFooter p{
 
 }
