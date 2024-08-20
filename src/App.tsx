@@ -5,6 +5,7 @@ import { Route, Routes } from 'react-router-dom'
 import {
   ForgotPasswordPage,
   HomePage,
+  IngredientPage,
   LoginPage,
   ProfilePageWithProtected,
   RegisterPage,
@@ -22,6 +23,7 @@ const Layout: React.FC = () => {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/reset-password" element={<ResetPasswordPage />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+          <Route path="/ingredient" element={<IngredientPage />} />
           <Route path="/profile" element={<ProfilePageWithProtected isAuthenticated={false} />} />
         </Routes>
       </main>

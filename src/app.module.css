@@ -10,6 +10,15 @@
 .container > *{
     width: 600px;
 }
+.ingredientContainer{
+    display: flex;
+    justify-content: center;
+    padding-top: 120px;
+}
+.ingredientContent{
+    width: 640px;
+    text-align: center;
+}
 .authContainer{
     display: flex;
     justify-content: center;

@@ -40,8 +40,8 @@ export const IngredientDetails: React.FC<IngredientDetailsProps> = ({ item }) =>
         <ul className={`${styles.options}`}>
           {options.map(({ key, value, name }) => (
             <li className={styles.option} key={key}>
-              <div className={`${styles.optionName} text text_type_main-default`}>{name}</div>
-              <div className={`${styles.optionValue} text text_type_digits-default`}>{value}</div>
+              <div className={`${styles.optionName} text text_type_main-default text_color_inactive`}>{name}</div>
+              <div className={`${styles.optionValue} text text_type_digits-default text_color_inactive`}>{value}</div>
             </li>
           ))}
         </ul>

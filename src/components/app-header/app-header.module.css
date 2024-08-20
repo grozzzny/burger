@@ -3,11 +3,16 @@
     justify-content: space-between;
     align-items: center;
     gap: 8px;
-    color: var(--secondary);
     padding: 0 20px;
     height: 56px;
     text-decoration: none;
     border-radius: 40px;
+}
+.navItem:hover{
+    text-decoration: none;
+}
+.navItem:hover:not(.navItemActive){
+    opacity: 0.8;
 }
 .navItemActive{
     color: var(--white);
