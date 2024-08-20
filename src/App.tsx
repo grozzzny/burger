@@ -7,6 +7,7 @@ import {
   HomePage,
   IngredientPage,
   LoginPage,
+  NotFoundPage,
   ProfilePageWithProtected,
   RegisterPage,
   ResetPasswordPage
@@ -23,8 +24,9 @@ const Layout: React.FC = () => {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/reset-password" element={<ResetPasswordPage />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-          <Route path="/ingredient" element={<IngredientPage />} />
+          <Route path="/ingredients/:id" element={<IngredientPage />} />
           <Route path="/profile" element={<ProfilePageWithProtected isAuthenticated={false} />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
     </>

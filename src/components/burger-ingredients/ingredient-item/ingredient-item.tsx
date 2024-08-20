@@ -20,9 +20,11 @@ export const IngredientItem: React.FC<IngredientItemProps> = ({ item, count }) =
   const toggleModal = useCallback((open: boolean) => {
     if (open) {
       setVisible(true)
+      window.history.replaceState({}, '', `/ingredients/${item._id}`)
       dispatch(selectIngredient(item))
     } else {
       setVisible(false)
+      window.history.replaceState({}, '', `/`)
       dispatch(selectIngredient(null))
     }
   }, [])

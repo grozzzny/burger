@@ -1,15 +1,17 @@
 import React, { useEffect } from 'react'
 import styles from '@/app.module.css'
-import { IngredientDetails, Loading } from '@/components'
+import { IngredientDetails, Loading, NotFound } from '@/components'
 import { useDispatch, useSelector } from '@/services/store'
 import { getIngredient } from '@/services/ingredients/reducer'
 import { loadIngredients } from '@/services/ingredients/actions'
 import { useNotification } from '@/providers/notification-provider'
+import { useParams } from 'react-router-dom'
 
 export const IngredientPage: React.FC = () => {
+  const { id } = useParams<{ id: string }>()
   const { notify } = useNotification()
   const dispatch = useDispatch()
-  const ingredient = useSelector((state) => getIngredient(state, '643d69a5c3f7b9001cfa0941'))
+  const ingredient = useSelector((state) => getIngredient(state, id!))
 
   const { loading, error } = useSelector((state) => state.ingredients)
 
@@ -23,7 +25,7 @@ export const IngredientPage: React.FC = () => {
 
   if (loading || error) return <Loading />
 
-  if (!ingredient) return <>Ингредиент не найден</>
+  if (!ingredient) return <NotFound label='Ингредиент не найден'/>
 
   return (
     <div className={styles.ingredientContainer}>
