@@ -10,3 +10,7 @@ export const calculateTotal = (bun: Ingredient | null, ingredients: Ingredient[]
 export const getArrayIds = (bun: Ingredient | null, ingredients: Ingredient[]): string[] => {
   return [...(bun ? [bun._id] : []), ...ingredients.map((ingredient) => ingredient._id), ...(bun ? [bun._id] : [])]
 }
+
+export const errorLabelEmpty = (field: string) => {
+  return `Поле "${field}" не может быть пустым`
+}

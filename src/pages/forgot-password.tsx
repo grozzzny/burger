@@ -2,6 +2,7 @@ import React from 'react'
 import styles from '@/app.module.css'
 import { Link } from 'react-router-dom'
 import { ForgotForm } from '@/components/form'
+import withProtection from '@/pages/with-protection'
 
 export const ForgotPasswordPage: React.FC = () => {
   return (
@@ -23,3 +24,5 @@ export const ForgotPasswordPage: React.FC = () => {
     </div>
   )
 }
+
+export const ForgotPasswordPageWithProtected = withProtection(ForgotPasswordPage)

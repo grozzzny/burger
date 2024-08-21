@@ -2,6 +2,7 @@ import React from 'react'
 import styles from '@/app.module.css'
 import { LoginForm } from '@/components/form'
 import { Link } from 'react-router-dom'
+import withProtection from '@/pages/with-protection'
 
 export const LoginPage: React.FC = () => {
   return (
@@ -27,3 +28,5 @@ export const LoginPage: React.FC = () => {
     </div>
   )
 }
+
+export const LoginPageWithProtected = withProtection(LoginPage)

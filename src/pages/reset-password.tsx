@@ -2,8 +2,12 @@ import React from 'react'
 import styles from '@/app.module.css'
 import { Link } from 'react-router-dom'
 import { ResetForm } from '@/components/form'
+import withProtection from '@/pages/with-protection'
+import { getNotForbidden } from '@/utils/local-storage-helper'
+import { Error } from '@/components'
 
 export const ResetPasswordPage: React.FC = () => {
+  if(!getNotForbidden()) return <Error code={403} label={'Доступ запрещен'}/>
   return (
     <div className={styles.authContainer}>
       <div className={styles.authContent}>
@@ -23,3 +27,5 @@ export const ResetPasswordPage: React.FC = () => {
     </div>
   )
 }
+
+export const ResetPasswordPageWithProtected = withProtection(ResetPasswordPage)

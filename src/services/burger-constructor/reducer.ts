@@ -46,10 +46,15 @@ export const burgerConstructorSlice = createSlice({
       prepare: (ingredient: Omit<Ingredient, 'key'>) => {
         return { payload: { ...ingredient, key: nanoid() } }
       }
+    },
+    clearConstructor: (state) => {
+      state.ingredients = []
+      state.bun = null
+      state.notification = null
     }
   }
 })
 
-export const { setBun, addIngredient, removeIngredient, updateIngredients, clearBunNotification } =
+export const { setBun, addIngredient, removeIngredient, updateIngredients, clearBunNotification, clearConstructor } =
   burgerConstructorSlice.actions
 export const { getIngredients, getBun, getBunNotification } = burgerConstructorSlice.selectors

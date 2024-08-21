@@ -1,34 +1,78 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components'
+import { useNotification } from '@/providers/notification-provider'
+import { useDispatch, useSelector } from '@/services/store'
+import { register } from '@/services/auth/actions'
+import { TInputInterface } from '@/types'
+import { errorLabelEmpty } from '@/utils/helper'
+import { useNavigate } from 'react-router-dom'
 
 interface RegisterFormProps {}
 
 export const RegisterForm: React.FC<RegisterFormProps> = () => {
+  const dispatch = useDispatch()
+  const { notify } = useNotification()
+  const navigate = useNavigate()
+
+  const error = useSelector((state) => state.auth.error)
+  const loading = useSelector((state) => state.auth.loading)
+
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  useEffect(() => {
+    if (error) notify('error', error)
+  }, [error, notify])
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    dispatch(register({ name, email, password }))
+      .unwrap()
+      .then(() => {
+        notify('success', 'Регистрация прошла успешно!')
+        navigate('/')
+      })
+      .catch((err) => console.error(err))
+  }
+
   return (
-    <form>
+    <form onSubmit={handleSubmit} autoComplete="off">
       <Input
-        onPointerEnterCapture
-        onPointerLeaveCapture
-        type={'text'}
-        placeholder={'Имя'}
-        onChange={() => {}}
-        value={''}
-        name={'name'}
-        extraClass="mb-6"
+        {...({
+          type: 'text',
+          placeholder: 'Имя',
+          onChange: (e) => setName(e.target.value),
+          value: name,
+          name: 'name',
+          error: name === '',
+          errorText: errorLabelEmpty('name'),
+          extraClass: "mb-6",
+          autoComplete: "off",
+        } as TInputInterface)}
       />
       <Input
-        onPointerEnterCapture
-        onPointerLeaveCapture
-        type={'text'}
-        placeholder={'E-mail'}
-        onChange={() => {}}
-        value={''}
-        name={'email'}
-        extraClass="mb-6"
+        {...({
+          type: 'text',
+          placeholder: 'E-mail',
+          onChange: (e) => setEmail(e.target.value),
+          value: email,
+          name: 'email',
+          error: email === '',
+          errorText: errorLabelEmpty('email'),
+          extraClass: "mb-6",
+          autoComplete: "off",
+        } as TInputInterface)}
       />
-      <PasswordInput onChange={() => {}} value={''} name={'password'} extraClass="mb-6" />
-      <Button htmlType="submit" type="primary">
-        Зарегистрироваться
+      <PasswordInput
+        onChange={(e) => setPassword(e.target.value)}
+        value={password}
+        name={'password'}
+        extraClass="mb-6"
+        autoComplete="off"
+      />
+      <Button htmlType="submit" type="primary" disabled={loading}>
+        {loading ? 'Загрузка...' : 'Зарегистрироваться'}
       </Button>
     </form>
   )

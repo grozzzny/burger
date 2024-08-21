@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react'
 import styles from '@/app.module.css'
-import { IngredientDetails, Loading, NotFound } from '@/components'
+import { IngredientDetails, Loading, Error } from '@/components'
 import { useDispatch, useSelector } from '@/services/store'
 import { getIngredient } from '@/services/ingredients/reducer'
 import { loadIngredients } from '@/services/ingredients/actions'
 import { useNotification } from '@/providers/notification-provider'
 import { useParams } from 'react-router-dom'
+import { HomePage } from '@/pages/home'
 
 export const IngredientPage: React.FC = () => {
   const { id } = useParams<{ id: string }>()
@@ -14,6 +15,8 @@ export const IngredientPage: React.FC = () => {
   const ingredient = useSelector((state) => getIngredient(state, id!))
 
   const { loading, error } = useSelector((state) => state.ingredients)
+
+  if(window.history.state.item) return <HomePage/>
 
   useEffect(() => {
     dispatch(loadIngredients())
@@ -25,7 +28,7 @@ export const IngredientPage: React.FC = () => {
 
   if (loading || error) return <Loading />
 
-  if (!ingredient) return <NotFound label='Ингредиент не найден'/>
+  if (!ingredient) return <Error label='Ингредиент не найден'/>
 
   return (
     <div className={styles.ingredientContainer}>

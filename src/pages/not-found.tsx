@@ -1,6 +1,6 @@
 import React from 'react'
-import { NotFound } from '@/components'
+import { Error } from '@/components'
 
 export const NotFoundPage: React.FC = () => {
-  return <NotFound/>
+  return <Error/>
 }

@@ -13,7 +13,7 @@ export const OrderPage: React.FC = () => {
         </div>
       </div>
       <div className={styles.profileRightSide}>
-        OrderPage
+        Заказ
       </div>
     </div>
   )

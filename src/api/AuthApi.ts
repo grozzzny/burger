@@ -1,20 +1,15 @@
 import BaseApi, { ResponseApi } from '@/api/BaseApi'
+import { Credentials, ResponseUserApi, User, UserWithPassword } from '@/types'
 
 export default class AuthApi extends BaseApi {
   async register(params: UserWithPassword, options: RequestInit = {}) {
-    const { accessToken, refreshToken } = await this.post<ResponseUserApi>('/auth/register', params, options)
-    return {
-      accessToken,
-      refreshToken
-    }
+    const { success, ...result } = await this.post<ResponseUserApi>('/auth/register', params, options)
+    return result
   }
 
   async login(params: Credentials, options: RequestInit = {}) {
-    const { accessToken, refreshToken } = await this.post<ResponseUserApi>('/auth/login', params, options)
-    return {
-      accessToken,
-      refreshToken
-    }
+    const { success, ...result } = await this.post<ResponseUserApi>('/auth/login', params, options)
+    return result
   }
 
   async logout(
@@ -80,24 +75,4 @@ export default class AuthApi extends BaseApi {
   ) {
     return this.post<ResponseApi>('/password-reset/reset', params, options)
   }
-}
-
-type Credentials = {
-  email: string
-  password: string
-}
-
-type ResponseUserApi = ResponseApi<{
-  user: User
-  accessToken: string
-  refreshToken: string
-}>
-
-interface User {
-  email: string
-  name: string
-}
-
-interface UserWithPassword extends User {
-  password: string
 }

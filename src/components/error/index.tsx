@@ -6,7 +6,7 @@ export interface NotFoundProps {
   code?: number
 }
 
-export const NotFound: React.FC<NotFoundProps> = ({ label = 'Страница не найдена', code = 404 }) => {
+export const Error: React.FC<NotFoundProps> = ({ label = 'Страница не найдена', code = 404 }) => {
   return (
     <div className={styles.notFoundContainer}>
       <h1 className='text text_type_digits-large mb-15'>{code}</h1>

@@ -7,10 +7,12 @@
   margin-bottom: 80px;
 }
 .profileMenu a{
-  color: var(--secondary);
   height: 64px;
   display: flex;
   align-items: center;
+}
+.profileMenuActive{
+  color: white;
 }
 .profileMenu a:hover{
   color: white;
