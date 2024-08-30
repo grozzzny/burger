@@ -1,4 +1,4 @@
-# Stellar Burgers
+# Stellar Burgers | TypeScript, React, Vite
 
 Добро пожаловать в проект "Stellar Burgers"! Этот проект представляет собой веб-приложение для бургерной на краю Вселенной, созданное с использованием React и TypeScript с целью обучения в рамках курса React от Yandex Practicum. 
 
