@@ -5,7 +5,7 @@ import { TargetType } from '@/types'
 import { useDrop } from 'react-dnd'
 import { useDispatch, useSelector } from '@/services/store'
 import {
-  clearBunNotification,
+  clearBunNotification, clearConstructor,
   getBun,
   getBunNotification,
   getIngredients,
@@ -14,8 +14,10 @@ import {
 } from '@/services/burger-constructor/reducer'
 import { useNotification } from '@/providers/notification-provider'
 import { calculateTotal, getArrayIds } from '@/utils/helper'
-import { getIds, getOrderId, getTotal, setIds, setOrderId, setTotal } from '@/services/order/reducer'
+import { getIds, getTotal, setIds, setOrderId, setTotal } from '@/services/order/reducer'
 import OrdersApi from '@/api/OrdersApi'
+import { getCurrentUser } from '@/services/auth/reducer'
+import { useNavigate } from 'react-router-dom'
 
 interface BurgerConstructorProps {}
 
@@ -25,10 +27,11 @@ export const BurgerConstructor: React.FC<BurgerConstructorProps> = () => {
   const ingredients = useSelector(getIngredients)
   const bun = useSelector(getBun)
   const bunNotification = useSelector(getBunNotification)
-  const orderId = useSelector(getOrderId)
   const ids = useSelector(getIds)
   const total = useSelector(getTotal)
   const { notify } = useNotification()
+  const user = useSelector(getCurrentUser)
+  const navigate = useNavigate()
 
   useEffect(() => {
     const total = calculateTotal(bun, ingredients)
@@ -68,16 +71,18 @@ export const BurgerConstructor: React.FC<BurgerConstructorProps> = () => {
         if (!bun) {
           notify('error', 'Булка обязательна!')
         } else {
+          if(!user) navigate('/login')
+          setVisible(true)
           new OrdersApi()
             .create(ids)
             .then((orderId) => {
               dispatch(setOrderId(orderId))
-              setVisible(true)
             })
             .catch((err) => notify('error', err.message))
         }
       } else {
         setVisible(false)
+        dispatch(clearConstructor())
         dispatch(setOrderId(0))
       }
     },
@@ -122,7 +127,7 @@ export const BurgerConstructor: React.FC<BurgerConstructorProps> = () => {
       </div>
       {visible && (
         <Modal onClose={() => toggleModal(false)}>
-          <OrderDetails orderId={orderId} />
+          <OrderDetails />
         </Modal>
       )}
     </>

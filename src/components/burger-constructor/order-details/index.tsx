@@ -1,12 +1,17 @@
 import React from 'react'
 import styles from './index.module.css'
 import imageDone from '@/images/done.svg'
+import { useSelector } from '@/services/store'
+import { getOrderId } from '@/services/order/reducer'
+import { Loading } from '@/components'
 
-interface OrderDetailsProps {
-  orderId: number
-}
+interface OrderDetailsProps {}
 
-export const OrderDetails: React.FC<OrderDetailsProps> = ({ orderId }) => {
+export const OrderDetails: React.FC<OrderDetailsProps> = () => {
+  const orderId = useSelector(getOrderId)
+
+  if(!orderId) return <Loading/>
+
   return (
     <div className={styles.order}>
       <div className={`${styles.number} text text_type_digits-large mb-8`}>{orderId}</div>

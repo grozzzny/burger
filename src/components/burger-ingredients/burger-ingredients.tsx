@@ -1,13 +1,14 @@
-import React, { RefObject, useCallback, useEffect, useMemo, useRef } from 'react'
+import React, { RefObject, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import styles from './burger-ingredients.module.css'
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
-import { IngredientItem, IngredientsGroup, Loading } from '@/components'
+import { IngredientDetails, IngredientItem, IngredientsGroup, Loading, Modal } from '@/components'
 import { Ingredient } from '@/types'
 import { useNotification } from '@/providers/notification-provider'
 import { useDispatch, useSelector } from '@/services/store'
 import { getBunIngredients, getMainIngredients, getSauceIngredients } from '@/services/ingredients/reducer'
 import { loadIngredients } from '@/services/ingredients/actions'
 import { getBun, getIngredients } from '@/services/burger-constructor/reducer'
+import { selectIngredient } from '@/services/selected-ingredient/reducer'
 
 export enum TabEnum {
   Buns = 'buns',
@@ -25,13 +26,16 @@ const labels: Record<TabEnum, string> = {
 
 export const BurgerIngredients: React.FC<BurgerIngredientsProps> = () => {
   const [current, setCurrent] = React.useState<TabEnum>(TabEnum.Buns)
+  const item = window.history.state.item
   const { notify } = useNotification()
   const dispatch = useDispatch()
   const ingredients = useSelector(getIngredients)
   const bun = useSelector(getBun)
   const { loading, error } = useSelector((state) => state.ingredients)
+  const [visible, setVisible] = useState<boolean>(false)
 
   useEffect(() => {
+    if (item) setVisible(true)
     dispatch(loadIngredients())
   }, [])
 
@@ -67,7 +71,7 @@ export const BurgerIngredients: React.FC<BurgerIngredientsProps> = () => {
     })
   }, [])
 
-  const counts: Record<string, number> = useMemo( ()=> {
+  const counts: Record<string, number> = useMemo(() => {
     const ingredientCounts: Record<string, number> = {}
     if (bun) ingredientCounts[bun._id] = 2
     ingredients.forEach((ingredient) => {
@@ -80,29 +84,48 @@ export const BurgerIngredients: React.FC<BurgerIngredientsProps> = () => {
     return ingredientCounts
   }, [ingredients, bun])
 
+  const toggleModal = useCallback((item: Ingredient | null) => {
+    if (item) {
+      setVisible(true)
+      window.history.replaceState({ item: item }, '', `/ingredients/${item._id}`)
+      dispatch(selectIngredient(item))
+    } else {
+      setVisible(false)
+      window.history.replaceState({ item: null }, '', `/`)
+      dispatch(selectIngredient(null))
+    }
+  }, [])
+
   if (loading || error) return <Loading />
 
   return (
-    <div className={styles.content}>
-      <div className={styles.fixedBlock}>
-        <h2 className={`${styles.heading} text text_type_main-large mb-5`}>Соберите бургер</h2>
-        <div className={styles.tabs}>
-          {Object.keys(refs).map((tab) => (
-            <Tab key={tab} value={tab} active={current === tab} onClick={onTabClick}>
-              {labels[tab as TabEnum]}
-            </Tab>
+    <>
+      <div className={styles.content}>
+        <div className={styles.fixedBlock}>
+          <h2 className={`${styles.heading} text text_type_main-large mb-5`}>Соберите бургер</h2>
+          <div className={styles.tabs}>
+            {Object.keys(refs).map((tab) => (
+              <Tab key={tab} value={tab} active={current === tab} onClick={onTabClick}>
+                {labels[tab as TabEnum]}
+              </Tab>
+            ))}
+          </div>
+        </div>
+        <div className={styles.scrollableBlock} onScroll={handleScroll}>
+          {Object.entries(refs).map(([tab, ref]) => (
+            <IngredientsGroup key={tab} tab={tab as TabEnum} refSection={ref} label={labels[tab as TabEnum]}>
+              {itemsSort[tab as TabEnum].map((item) => (
+                <IngredientItem toggleModal={toggleModal} count={counts[item._id]} key={item._id} item={item} />
+              ))}
+            </IngredientsGroup>
           ))}
         </div>
       </div>
-      <div className={styles.scrollableBlock} onScroll={handleScroll}>
-        {Object.entries(refs).map(([tab, ref]) => (
-          <IngredientsGroup key={tab} tab={tab as TabEnum} refSection={ref} label={labels[tab as TabEnum]}>
-            {itemsSort[tab as TabEnum].map((item) => (
-              <IngredientItem count={counts[item._id]} key={item._id} item={item} />
-            ))}
-          </IngredientsGroup>
-        ))}
-      </div>
-    </div>
+      {visible && (
+        <Modal onClose={() => toggleModal(null)}>
+          <IngredientDetails item={item} />
+        </Modal>
+      )}
+    </>
   )
 }

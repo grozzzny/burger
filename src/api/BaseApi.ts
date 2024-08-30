@@ -47,3 +47,5 @@ export default class BaseApi {
     return this.fetcher(url, { ...options, method: 'DELETE' })
   }
 }
+
+export type ResponseApi<T = { message: string }> = { success: boolean } & T

@@ -31,6 +31,10 @@ export const ingredientsSlice = createSlice({
     getMainIngredients: createSelector(
       (state) => state.ingredients,
       (ingredients: Ingredient[]) => ingredients.filter((ingredient) => ingredient.type === 'main')
+    ),
+    getIngredient: createSelector(
+      [(state: IngredientsState) => state.ingredients, (_state: IngredientsState, id: string) => id],
+      (ingredients: Ingredient[], id: string) => ingredients.find((ingredient) => ingredient._id === id)
     )
   },
   extraReducers: (builder) => {
@@ -50,4 +54,4 @@ export const ingredientsSlice = createSlice({
   }
 })
 
-export const { getSauceIngredients, getBunIngredients, getMainIngredients } = ingredientsSlice.selectors
+export const { getSauceIngredients, getBunIngredients, getMainIngredients, getIngredient } = ingredientsSlice.selectors

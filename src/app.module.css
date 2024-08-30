@@ -10,3 +10,43 @@
 .container > *{
     width: 600px;
 }
+.ingredientContainer{
+    display: flex;
+    justify-content: center;
+    padding-top: 120px;
+}
+.ingredientContent{
+    width: 640px;
+    text-align: center;
+}
+.authContainer{
+    display: flex;
+    justify-content: center;
+    padding-top: 180px;
+}
+.authContent{
+    width: 480px;
+    text-align: center;
+}
+.authFooter p{
+    color: var(--secondary);
+    font-size: 16px;
+}
+.authFooter a{
+    margin-left: 6px;
+}
+.profileContainer{
+    width: var(--content-width);
+    margin: auto;
+    display: flex;
+    padding: 120px 20px 0 20px;
+}
+.profileLeftSide{
+    width: 320px;
+}
+.profileRightSide{
+    text-align: center;
+}
+.profileFooter p{
+
+}
