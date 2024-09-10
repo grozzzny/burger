@@ -3,7 +3,6 @@ import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burg
 import { useNotification } from '@/providers/notification-provider'
 import { useDispatch, useSelector } from '@/services/store'
 import { register } from '@/services/auth/actions'
-import { TInputInterface } from '@/types'
 import { errorLabelEmpty } from '@/utils/helper'
 import { useNavigate } from 'react-router-dom'
 
@@ -39,30 +38,26 @@ export const RegisterForm: React.FC<RegisterFormProps> = () => {
   return (
     <form onSubmit={handleSubmit} autoComplete="off">
       <Input
-        {...({
-          type: 'text',
-          placeholder: 'Имя',
-          onChange: (e) => setName(e.target.value),
-          value: name,
-          name: 'name',
-          error: name === '',
-          errorText: errorLabelEmpty('name'),
-          extraClass: "mb-6",
-          autoComplete: "off",
-        } as TInputInterface)}
+        type="text"
+        placeholder="Имя"
+        onChange={(e) => setName(e.target.value)}
+        value={name}
+        name="name"
+        error={name === ''}
+        errorText={errorLabelEmpty('name')}
+        extraClass="mb-6"
+        autoComplete="off"
       />
       <Input
-        {...({
-          type: 'text',
-          placeholder: 'E-mail',
-          onChange: (e) => setEmail(e.target.value),
-          value: email,
-          name: 'email',
-          error: email === '',
-          errorText: errorLabelEmpty('email'),
-          extraClass: "mb-6",
-          autoComplete: "off",
-        } as TInputInterface)}
+        type="text"
+        placeholder="E-mail"
+        onChange={(e) => setEmail(e.target.value)}
+        value={email}
+        name="email"
+        error={email === ''}
+        errorText={errorLabelEmpty('email')}
+        extraClass="mb-6"
+        autoComplete="off"
       />
       <PasswordInput
         onChange={(e) => setPassword(e.target.value)}

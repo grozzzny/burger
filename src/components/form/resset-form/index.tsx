@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom'
 import AuthApi from '@/api/AuthApi'
 import { clearNotForbidden } from '@/utils/local-storage-helper'
 import { errorLabelEmpty } from '@/utils/helper'
-import { TInputInterface } from '@/types'
 
 interface ResetFormProps {}
 
@@ -46,17 +45,15 @@ export const ResetForm: React.FC<ResetFormProps> = () => {
         extraClass="mb-6"
       />
       <Input
-        {...({
-          type: 'text',
-          placeholder: 'Введите код из письма',
-          onChange: (e) => setCode(e.target.value),
-          value: code || '',
-          name: 'code',
-          error: code === '',
-          errorText: errorLabelEmpty('code'),
-          extraClass: 'mb-6',
-          autoComplete: 'off'
-        } as TInputInterface)}
+        type="text"
+        placeholder="Введите код из письма"
+        onChange={(e) => setCode(e.target.value)}
+        value={code || ''}
+        name="code"
+        error={code === ''}
+        errorText={errorLabelEmpty('code')}
+        extraClass="mb-6"
+        autoComplete="off"
       />
       <Button htmlType="submit" type="primary" disabled={loading}>
         {loading ? 'Сохранение...' : 'Сохранить'}
