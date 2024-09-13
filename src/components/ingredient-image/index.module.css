@@ -1,0 +1,19 @@
+.ingredient {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: linear-gradient(63.18deg, var(--color-ingradient-1) 0%, var(--color-ingradient-2) 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.ingredient img {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+  background-color: black;
+}

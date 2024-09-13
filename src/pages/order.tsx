@@ -1,19 +1,18 @@
 import React from 'react'
 import styles from '@/app.module.css'
 import withProtection from '@/pages/with-protection'
-import { ProfileMenu } from '@/components'
+import { useParams } from 'react-router-dom'
+import { orders } from '@/utils/data-orders'
+import { Error, OrderInfo } from '@/components'
 
 export const OrderPage: React.FC = () => {
+  const { id } = useParams<{ id: string }>()
+  const order = orders.find(item => item.id === id)
+  if(!order) return <Error label='Заказ не найден'/>
   return (
-    <div className={styles.profileContainer}>
-      <div className={`${styles.profileLeftSide} mr-15`}>
-        <ProfileMenu/>
-        <div className={styles.profileFooter}>
-          <p className={'text text_type_main-default text_color_inactive'}>В этом разделе вы можете<br/> увидеть свой заказ</p>
-        </div>
-      </div>
-      <div className={styles.profileRightSide}>
-        Заказ
+    <div className={styles.orderContainer}>
+      <div className={`${styles.orderContent}`}>
+        <OrderInfo order={order}/>
       </div>
     </div>
   )

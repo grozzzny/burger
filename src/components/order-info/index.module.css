@@ -1,0 +1,48 @@
+.content {
+}
+.header {
+  text-align: center;
+}
+.body {
+}
+.success {
+  color: var(--color-success);
+}
+.ingredients {
+  list-style: none;
+  margin: 0;
+  padding: 0 24px 0 0;
+  max-height: 312px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.ingredient {
+  display: flex;
+  align-items: center;
+}
+.ingredientName {
+  flex: 1;
+  padding-right: 90px;
+}
+.ingredientPrice {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  white-space: nowrap;
+}
+.ingredientPrice svg {
+  margin-left: 8px;
+}
+.footer {
+  display: flex;
+}
+.date {
+}
+.price {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+.price svg {
+  margin-left: 8px;
+}

@@ -2,7 +2,7 @@
   display: grid;
   grid-template-rows: auto 1fr auto;
   overflow: hidden;
-  height: calc(100vh - 250px);
+  height: var(--height-container);
   padding-bottom: 20px;
 }
 .top{
