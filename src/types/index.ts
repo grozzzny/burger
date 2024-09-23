@@ -44,3 +44,33 @@ export interface User {
 export interface UserWithPassword extends User {
   password: string
 }
+
+export enum WebsocketStatus {
+  CONNECTING = 'CONNECTING',
+  ONLINE = 'ONLINE',
+  OFFLINE = 'OFFLINE'
+}
+
+export type WsOrderStatus = 'done' | 'pending' | 'created'
+
+export type WsOrder = {
+  ingredients: string[]
+  _id: string
+  status: WsOrderStatus
+  number: number
+  name: string
+  createdAt: string
+  updatedAt: string
+}
+
+export type WsOrderDetail = {
+  ingredientsDetail: Ingredient[]
+  total: number
+} & WsOrder
+
+export type WsData = {
+  success: boolean
+  orders: WsOrder[]
+  total: number
+  totalToday: number
+}

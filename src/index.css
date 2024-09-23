@@ -6,6 +6,7 @@
   --content-width: 1280px;
   --color-link: #4c4cff;
   --color-warning: #f0ad4e4a;
+  --color-danger: rgba(255, 0, 0, 0.67);
   --color-error: #ff00004a;
   --color-info: #5bc0de4a;
   --overlay-background: rgba(0, 0, 0, 0.7);

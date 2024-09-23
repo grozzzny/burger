@@ -1,50 +1,56 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './index.module.css'
+import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
 
-interface OrderStatusProps {}
+interface OrderStatusProps {
+  ordersDone: number[]
+  ordersPending: number[]
+  total: number
+  totalToday: number
+}
 
-export const OrderStatus: React.FC<OrderStatusProps> = () => {
+const MAX_VISIBLE_ITEMS = 10
+
+export const OrderStatus: React.FC<OrderStatusProps> = ({ ordersDone, ordersPending, total, totalToday }) => {
+  const [showDoneAll, setShowDoneAll] = useState(false)
+  const [showPendingAll, setShowPendingAll] = useState(false)
   return (
     <div className={`${styles.content} mt-25 pl-4`}>
       <div className={`${styles.ordersStatus} mb-15`}>
         <div className={`${styles.columnStatus}`}>
-          <div className={`${styles.heading} text text_type_main-medium mb-6`}>
-            Готовы:
-          </div>
+          <div className={`${styles.heading} text text_type_main-medium mb-6`}>Готовы:</div>
           <ul className={`${styles.success}`}>
-            <li className={`mb-2 text text_type_digits-default`}>034533</li>
-            <li className={`mb-2 text text_type_digits-default`}>034532</li>
-            <li className={`mb-2 text text_type_digits-default`}>034530</li>
-            <li className={`mb-2 text text_type_digits-default`}>034527</li>
-            <li className={`mb-2 text text_type_digits-default`}>034525</li>
+            {ordersDone.slice(0, showDoneAll ? ordersDone.length : MAX_VISIBLE_ITEMS).map((orderNumber) => (
+              <li key={orderNumber} className={`mb-2 text text_type_digits-default`}>{orderNumber}</li>
+            ))}
           </ul>
+          {ordersDone.length > MAX_VISIBLE_ITEMS && (
+            <Button onClick={() => setShowDoneAll(!showDoneAll)} htmlType="button" type="primary" size="small">
+              {showDoneAll ? 'Скрыть' : 'Весь список'}
+            </Button>
+          )}
         </div>
         <div className={`${styles.columnStatus}`}>
-          <div className={`${styles.heading} text text_type_main-medium mb-6`}>
-            В работе:
-          </div>
+          <div className={`${styles.heading} text text_type_main-medium mb-6`}>В работе:</div>
           <ul className={`${styles.pending}`}>
-            <li className={`mb-2 text text_type_digits-default`}>034538</li>
-            <li className={`mb-2 text text_type_digits-default`}>034541</li>
-            <li className={`mb-2 text text_type_digits-default`}>034542</li>
+            {ordersPending.slice(0, showPendingAll ? ordersPending.length : MAX_VISIBLE_ITEMS).map((orderNumber) => (
+              <li key={orderNumber} className={`mb-2 text text_type_digits-default`}>{orderNumber}</li>
+            ))}
           </ul>
+          {ordersPending.length > MAX_VISIBLE_ITEMS && (
+            <Button onClick={() => setShowPendingAll(!showPendingAll)} htmlType="button" type="primary" size="small">
+              {showPendingAll ? 'Скрыть' : 'Весь список'}
+            </Button>
+          )}
         </div>
       </div>
       <div className={`mb-15`}>
-        <div className={`${styles.heading} text text_type_main-medium`}>
-          Выполнено за все время:
-        </div>
-        <div className={`text text_type_digits-large`}>
-          28 752
-        </div>
+        <div className={`${styles.heading} text text_type_main-medium`}>Выполнено за все время:</div>
+        <div className={`text text_type_digits-large`}>{total}</div>
       </div>
       <div>
-        <div className={`${styles.heading} text text_type_main-medium`}>
-          Выполнено за сегодня:
-        </div>
-        <div className={`text text_type_digits-large`}>
-          138
-        </div>
+        <div className={`${styles.heading} text text_type_main-medium`}>Выполнено за сегодня:</div>
+        <div className={`text text_type_digits-large`}>{totalToday}</div>
       </div>
     </div>
   )

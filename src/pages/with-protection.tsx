@@ -10,13 +10,13 @@ interface WithProtectionProps {
 
 const withProtection = (Component: React.ComponentType) => {
   return ({ limitedAccess = false }: WithProtectionProps) => {
-    const { notify } = useNotification()
+    const notification = useNotification()
     const { user, error, loading } = useSelector((state) => state.auth)
     const location = useLocation()
 
     useEffect(() => {
-      if (error) notify('error', error)
-    }, [error, notify])
+      if (error) notification?.notify('error', error)
+    }, [error, notification])
 
     if (loading) return <Loading />
 

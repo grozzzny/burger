@@ -8,7 +8,7 @@ interface LoginFormProps {}
 
 export const LoginForm: React.FC<LoginFormProps> = () => {
   const dispatch = useDispatch()
-  const { notify } = useNotification()
+  const notification = useNotification()
 
   const error = useSelector((state) => state.auth.error)
   const loading = useSelector((state) => state.auth.loading)
@@ -17,15 +17,15 @@ export const LoginForm: React.FC<LoginFormProps> = () => {
   const [password, setPassword] = useState('')
 
   useEffect(() => {
-    if (error) notify('error', error)
-  }, [error, notify])
+    if (error) notification?.notify('error', error)
+  }, [error, notification])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     dispatch(login({ email, password }))
       .unwrap()
       .then(() => {
-        notify('success', 'Вход выполнен успешно!')
+        notification?.notify('success', 'Вход выполнен успешно!')
       })
   }
 

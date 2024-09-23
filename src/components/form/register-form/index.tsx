@@ -10,7 +10,7 @@ interface RegisterFormProps {}
 
 export const RegisterForm: React.FC<RegisterFormProps> = () => {
   const dispatch = useDispatch()
-  const { notify } = useNotification()
+  const notification = useNotification()
   const navigate = useNavigate()
 
   const error = useSelector((state) => state.auth.error)
@@ -21,15 +21,15 @@ export const RegisterForm: React.FC<RegisterFormProps> = () => {
   const [password, setPassword] = useState('')
 
   useEffect(() => {
-    if (error) notify('error', error)
-  }, [error, notify])
+    if (error) notification?.notify('error', error)
+  }, [error, notification])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     dispatch(register({ name, email, password }))
       .unwrap()
       .then(() => {
-        notify('success', 'Регистрация прошла успешно!')
+        notification?.notify('success', 'Регистрация прошла успешно!')
         navigate('/')
       })
       .catch((err) => console.error(err))

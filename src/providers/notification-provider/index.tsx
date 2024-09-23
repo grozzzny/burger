@@ -33,4 +33,4 @@ export const NotificationProvider: React.FC<{ children: ReactNode }> = ({ childr
   )
 }
 
-export const useNotification = () => useContext(NotificationContext)!
+export const useNotification = () => useContext(NotificationContext)

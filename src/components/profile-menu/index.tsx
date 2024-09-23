@@ -10,17 +10,17 @@ export interface ProfileMenuProps {}
 export const ProfileMenu: React.FC<ProfileMenuProps> = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const { notify } = useNotification()
+  const notification = useNotification()
 
   const handleLogout = async () => {
     dispatch(logout())
       .unwrap()
       .then(() => {
-        notify('success', 'Вы успешно вышли из системы!')
+        notification?.notify('success', 'Вы успешно вышли из системы!')
         navigate('/login')
       })
       .catch((err) => {
-        notify('error', err)
+        notification?.notify('error', err)
       })
   }
 

@@ -10,7 +10,7 @@ import { HomePage } from '@/pages/home'
 
 export const IngredientPage: React.FC = () => {
   const { id } = useParams<{ id: string }>()
-  const { notify } = useNotification()
+  const notification = useNotification()
   const dispatch = useDispatch()
   const ingredient = useSelector((state) => getIngredient(state, id!))
 
@@ -23,8 +23,8 @@ export const IngredientPage: React.FC = () => {
   }, [])
 
   useEffect(() => {
-    if (error) notify('error', error)
-  }, [error, notify])
+    if (error) notification?.notify('error', error)
+  }, [error, notification])
 
   if (loading || error) return <Loading />
 

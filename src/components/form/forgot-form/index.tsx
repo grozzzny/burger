@@ -11,7 +11,7 @@ interface ForgotFormProps {}
 export const ForgotForm: React.FC<ForgotFormProps> = () => {
   const [email, setEmail] = useState<null | string>(null)
   const [loading, setLoading] = useState(false)
-  const { notify } = useNotification()
+  const notification = useNotification()
   const navigate = useNavigate()
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -21,12 +21,12 @@ export const ForgotForm: React.FC<ForgotFormProps> = () => {
     new AuthApi()
       .preResetPassword({ email })
       .then(() => {
-        notify('success', 'Запрос на смену пароля успешно выполнен!')
+        notification?.notify('success', 'Запрос на смену пароля успешно выполнен!')
         setNotForbidden()
         navigate('/reset-password')
       })
       .catch((err) => {
-        notify('error', err.message)
+        notification?.notify('error', err.message)
       })
       .finally(() => {
         setLoading(false)

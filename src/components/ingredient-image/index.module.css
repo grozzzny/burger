@@ -9,6 +9,17 @@
   align-items: center;
   position: relative;
 }
+.ingredient:after {
+  content: attr(data-more);
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .ingredient img {
   width: 58px;
   height: 58px;

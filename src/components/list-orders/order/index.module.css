@@ -8,8 +8,8 @@
   transition: 0.2s opacity ease-in;
 }
 .order:hover {
-   text-decoration: none;
-  opacity: .7;
+  text-decoration: none;
+  opacity: 0.7;
 }
 .header {
   display: flex;
@@ -39,6 +39,11 @@
 .price svg {
   margin-left: 10px;
 }
-.success {
+.done {
   color: var(--color-success);
+}
+.pending {
+  color: var(--color-danger);
+}
+.created {
 }

@@ -12,23 +12,23 @@ export const ResetForm: React.FC<ResetFormProps> = () => {
   const [password, setPassword] = useState('')
   const [code, setCode] = useState<null | string>(null)
   const [loading, setLoading] = useState(false)
-  const { notify } = useNotification()
+  const notification = useNotification()
   const navigate = useNavigate()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!password) return notify('error', errorLabelEmpty('password'))
+    if (!password) return notification?.notify('error', errorLabelEmpty('password'))
     if (!code) return setCode('')
     setLoading(true)
     new AuthApi()
       .resetPassword({ password, token: code })
       .then(() => {
-        notify('success', 'Пароль успешно изменен!')
+        notification?.notify('success', 'Пароль успешно изменен!')
         clearNotForbidden()
         navigate('/login')
       })
       .catch((err) => {
-        notify('error', err.message)
+        notification?.notify('error', err.message)
       })
       .finally(() => {
         setLoading(false)
