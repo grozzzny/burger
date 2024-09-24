@@ -1,6 +1,5 @@
 import { ActionCreatorWithoutPayload, ActionCreatorWithPayload, Middleware } from '@reduxjs/toolkit'
-import AuthApi from '@/api/AuthApi'
-import { getRefreshToken, setTokens } from '@/utils/local-storage-helper'
+import { setTokens, updateAccessToken } from '@/utils/local-storage-helper'
 
 export type TWsActionTypes<S, R> = {
   connect: ActionCreatorWithPayload<string>
@@ -14,8 +13,6 @@ export type TWsActionTypes<S, R> = {
 }
 
 const RECONNECT_PERIOD = 3000
-
-const authApi = new AuthApi()
 
 export const socketMiddleware = <S, R>(
   wsActions: TWsActionTypes<S, R>,
@@ -62,14 +59,16 @@ export const socketMiddleware = <S, R>(
             const parsedData = JSON.parse(data)
 
             if (withTokenRefresh && parsedData.message === 'Invalid or missing token') {
-              authApi.refreshToken({ token: getRefreshToken() || '' }).then(({ accessToken, refreshToken }) => {
-                setTokens(accessToken, refreshToken)
-                const wssUrl = new URL(url)
-                wssUrl.searchParams.set('token', accessToken.replace('Bearer ', ''))
-                dispatch(connect(wssUrl.toString()))
-              }).catch((err) => {
-                dispatch(onError((err as Error).message))
-              })
+              updateAccessToken()
+                .then(({ accessToken, refreshToken }) => {
+                  setTokens(accessToken, refreshToken)
+                  const wssUrl = new URL(url)
+                  wssUrl.searchParams.set('token', accessToken.replace('Bearer ', ''))
+                  dispatch(connect(wssUrl.toString()))
+                })
+                .catch((err) => {
+                  dispatch(onError((err as Error).message))
+                })
 
               dispatch(disconnect())
 

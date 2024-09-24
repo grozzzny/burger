@@ -18,6 +18,7 @@ import { getIds, getTotal, setIds, setOrderId, setTotal } from '@/services/order
 import OrdersApi from '@/api/OrdersApi'
 import { getCurrentUser } from '@/services/auth/reducer'
 import { useNavigate } from 'react-router-dom'
+import { withAuth } from '@/utils/local-storage-helper'
 
 interface BurgerConstructorProps {}
 
@@ -75,7 +76,7 @@ export const BurgerConstructor: React.FC<BurgerConstructorProps> = () => {
           if(ids.length == 0) return
           setVisible(true)
           new OrdersApi()
-            .create(ids)
+            .create(ids, withAuth())
             .then((orderId) => {
               dispatch(setOrderId(orderId))
             })
@@ -87,7 +88,7 @@ export const BurgerConstructor: React.FC<BurgerConstructorProps> = () => {
         dispatch(setOrderId(0))
       }
     },
-    [bun, ingredients, dispatch, notification]
+    [bun, ingredients, dispatch, notification, ids]
   )
 
   return (
