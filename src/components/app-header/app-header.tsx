@@ -29,7 +29,7 @@ export const AppHeader: React.FC = () => {
               )}
             </NavLink>
             <NavLink
-              to="/history"
+              to="/feed"
               className={({ isActive }) =>
                 `${styles.navItem} text text_type_main-default mr-a ${
                   isActive ? styles.navItemActive : 'text_color_inactive'

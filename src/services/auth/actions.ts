@@ -1,7 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import AuthApi from '@/api/AuthApi'
 import { Credentials, User, UserWithPassword } from '@/types'
-import { clearTokens, getAccessToken, getRefreshToken, setTokens, withAuth } from '@/utils/local-storage-helper'
+import {
+  clearTokens,
+  getAccessToken,
+  getRefreshToken,
+  setTokens,
+  withAuth
+} from '@/utils/local-storage-helper'
 
 const authApi = new AuthApi()
 
@@ -39,16 +45,6 @@ export const getUser = createAsyncThunk('auth/getUser', async (_, { rejectWithVa
     return await authApi.getUser(withAuth())
   } catch (error) {
     const message = (error as Error).message
-    if (message === 'jwt expired') {
-      try {
-        const { accessToken, refreshToken } = await authApi.refreshToken({ token: getRefreshToken() || '' })
-        setTokens(accessToken, refreshToken)
-        return await authApi.getUser(withAuth())
-      } catch (refreshError) {
-        const refreshMessage = (refreshError as Error).message
-        return rejectWithValue(refreshMessage)
-      }
-    }
     return rejectWithValue(message)
   }
 })

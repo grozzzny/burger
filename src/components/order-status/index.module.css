@@ -1,0 +1,30 @@
+.content {
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: var(--height-container);
+}
+.ordersStatus {
+  display: flex;
+  gap: 56px;
+}
+.columnStatus {
+  width: 50%;
+}
+.success,
+.pending {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  column-count: 2;
+  column-gap: 20px;
+}
+.success {
+  color: var(--color-success);
+}
+.pending {
+}
+.columnStatus {
+}
+
+.heading {
+}

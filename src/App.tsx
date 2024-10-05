@@ -4,7 +4,7 @@ import { NotificationProvider } from '@/providers/notification-provider'
 import { Route, Routes } from 'react-router-dom'
 import {
   ForgotPasswordPageWithProtected,
-  HistoryPage,
+  FeedPage,
   HomePage,
   IngredientPage,
   LoginPageWithProtected,
@@ -17,6 +17,7 @@ import {
 } from '@/pages'
 import { useDispatch } from '@/services/store'
 import { getUser } from '@/services/auth/actions'
+import { OrderPage } from '@/pages/order'
 
 const Layout: React.FC = () => {
   const dispatch = useDispatch()
@@ -38,7 +39,8 @@ const Layout: React.FC = () => {
           <Route path="/profile" element={<ProfilePageWithProtected />} />
           <Route path="/profile/orders" element={<OrdersPageWithProtected />} />
           <Route path="/profile/orders/:id" element={<OrderPageWithProtected />} />
-          <Route path="/history" element={<HistoryPage />} />
+          <Route path="/feed" element={<FeedPage />} />
+          <Route path="/feed/:id" element={<OrderPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>

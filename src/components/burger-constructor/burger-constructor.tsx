@@ -18,6 +18,7 @@ import { getIds, getTotal, setIds, setOrderId, setTotal } from '@/services/order
 import OrdersApi from '@/api/OrdersApi'
 import { getCurrentUser } from '@/services/auth/reducer'
 import { useNavigate } from 'react-router-dom'
+import { withAuth } from '@/utils/local-storage-helper'
 
 interface BurgerConstructorProps {}
 
@@ -27,25 +28,25 @@ export const BurgerConstructor: React.FC<BurgerConstructorProps> = () => {
   const ingredients = useSelector(getIngredients)
   const bun = useSelector(getBun)
   const bunNotification = useSelector(getBunNotification)
-  const ids = useSelector(getIds)
   const total = useSelector(getTotal)
-  const { notify } = useNotification()
+  const notification = useNotification()
   const user = useSelector(getCurrentUser)
   const navigate = useNavigate()
+  const ids = useSelector(getIds)
 
   useEffect(() => {
     const total = calculateTotal(bun, ingredients)
     dispatch(setTotal(total))
-    const ids = getArrayIds(bun, ingredients)
-    dispatch(setIds(ids))
+    const idsArr = getArrayIds(bun, ingredients)
+    dispatch(setIds(idsArr))
   }, [bun, ingredients, dispatch])
 
   useEffect(() => {
     if (bunNotification) {
-      notify('info', bunNotification)
+      notification?.notify('info', bunNotification)
       dispatch(clearBunNotification())
     }
-  }, [bunNotification, dispatch, notify])
+  }, [bunNotification, dispatch, notification])
 
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
     accept: TargetType.BurgerConstructor,
@@ -69,16 +70,17 @@ export const BurgerConstructor: React.FC<BurgerConstructorProps> = () => {
     (open: boolean) => {
       if (open) {
         if (!bun) {
-          notify('error', 'Булка обязательна!')
+          notification?.notify('error', 'Булка обязательна!')
         } else {
           if(!user) navigate('/login')
+          if(ids.length == 0) return
           setVisible(true)
           new OrdersApi()
-            .create(ids)
+            .create(ids, withAuth())
             .then((orderId) => {
               dispatch(setOrderId(orderId))
             })
-            .catch((err) => notify('error', err.message))
+            .catch((err) => notification?.notify('error', err.message))
         }
       } else {
         setVisible(false)
@@ -86,7 +88,7 @@ export const BurgerConstructor: React.FC<BurgerConstructorProps> = () => {
         dispatch(setOrderId(0))
       }
     },
-    [bun, notify]
+    [bun, ingredients, dispatch, notification, ids]
   )
 
   return (

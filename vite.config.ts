@@ -7,7 +7,8 @@ dotenv.config()
 // https://vitejs.dev/config/
 export default defineConfig({
   define: {
-    __API_URI__: JSON.stringify(process.env.API_URI)
+    __API_URI__: JSON.stringify(process.env.API_URI),
+    __WS_URI__: JSON.stringify(process.env.WS_URI)
   },
   plugins: [react()],
   resolve: {

@@ -1,6 +1,4 @@
 import { ResponseApi } from '@/api/BaseApi'
-import React from 'react'
-import { TICons } from '@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons'
 
 export type IngredientType = 'bun' | 'main' | 'sauce'
 
@@ -47,21 +45,32 @@ export interface UserWithPassword extends User {
   password: string
 }
 
-export interface TInputInterface extends Omit<React.HTMLProps<HTMLInputElement>, 'size'> {
-  value: string;
-  type?: 'text' | 'email' | 'password';
-  placeholder?: string;
-  success?: boolean;
-  error?: boolean;
-  disabled?: boolean;
-  icon?: keyof TICons;
-  errorText?: string;
-  size?: 'default' | 'small';
-  extraClass?: string;
-  onChange(e: React.ChangeEvent<HTMLInputElement>): void;
-  onIconClick?(e: React.MouseEvent<HTMLDivElement>): void;
-  onBlur?(e?: React.FocusEvent<HTMLInputElement>): void;
-  onFocus?(e?: React.FocusEvent<HTMLInputElement>): void;
-  onPointerEnterCapture: unknown
-  onPointerLeaveCapture: unknown
+export enum WebsocketStatus {
+  CONNECTING = 'CONNECTING',
+  ONLINE = 'ONLINE',
+  OFFLINE = 'OFFLINE'
+}
+
+export type WsOrderStatus = 'done' | 'pending' | 'created'
+
+export type WsOrder = {
+  ingredients: string[]
+  _id: string
+  status: WsOrderStatus
+  number: number
+  name: string
+  createdAt: string
+  updatedAt: string
+}
+
+export type WsOrderDetail = {
+  ingredientsDetail: Ingredient[]
+  total: number
+} & WsOrder
+
+export type WsData = {
+  success: boolean
+  orders: WsOrder[]
+  total: number
+  totalToday: number
 }

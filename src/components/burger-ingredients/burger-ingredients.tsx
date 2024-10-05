@@ -27,7 +27,7 @@ const labels: Record<TabEnum, string> = {
 export const BurgerIngredients: React.FC<BurgerIngredientsProps> = () => {
   const [current, setCurrent] = React.useState<TabEnum>(TabEnum.Buns)
   const item = window.history.state.item
-  const { notify } = useNotification()
+  const notification = useNotification()
   const dispatch = useDispatch()
   const ingredients = useSelector(getIngredients)
   const bun = useSelector(getBun)
@@ -40,8 +40,8 @@ export const BurgerIngredients: React.FC<BurgerIngredientsProps> = () => {
   }, [])
 
   useEffect(() => {
-    if (error) notify('error', error)
-  }, [error, notify])
+    if (error) notification?.notify('error', error)
+  }, [error, notification])
 
   const refs: Record<TabEnum, RefObject<HTMLDivElement>> = {
     [TabEnum.Buns]: useRef<HTMLDivElement>(null),

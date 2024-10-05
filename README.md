@@ -23,6 +23,7 @@
 4. Задайте ENV переменные:
    ```bash
    API_URI=https://norma.nomoreparties.space/api
+   WS_URI=wss://norma.nomoreparties.space
    ```
 
 ## Проделана работа на 1 спринте. Step 1
