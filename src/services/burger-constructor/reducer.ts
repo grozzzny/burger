@@ -7,7 +7,7 @@ interface BurgerConstructorState {
   notification: string | null
 }
 
-const initialState: BurgerConstructorState = {
+export const initialState: BurgerConstructorState = {
   bun: null,
   ingredients: [],
   notification: null

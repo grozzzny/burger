@@ -6,7 +6,7 @@ interface OrderState {
   orderId: number
 }
 
-const initialState: OrderState = {
+export const initialState: OrderState = {
   ids: [],
   total: 0,
   orderId: 0

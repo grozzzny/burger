@@ -8,7 +8,7 @@ interface AuthState {
   error: string | null
 }
 
-const initialState: AuthState = {
+export const initialState: AuthState = {
   user: null,
   loading: true,
   error: null
