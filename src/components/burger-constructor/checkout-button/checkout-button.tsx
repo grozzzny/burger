@@ -14,7 +14,7 @@ export const CheckoutButton: React.FC<CheckoutButtonProps> = ({ price, onClick }
         {price}
         <CurrencyIcon type="primary" />
       </span>
-      <Button onClick={onClick} htmlType="button" type="primary" size="large" extraClass='ml-10'>
+      <Button data-cy="order-button" onClick={onClick} htmlType="button" type="primary" size="large" extraClass='ml-10'>
         Оформить заказ
       </Button>
     </div>

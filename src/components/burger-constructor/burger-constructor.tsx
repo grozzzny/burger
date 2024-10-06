@@ -5,7 +5,8 @@ import { TargetType } from '@/types'
 import { useDrop } from 'react-dnd'
 import { useDispatch, useSelector } from '@/services/store'
 import {
-  clearBunNotification, clearConstructor,
+  clearBunNotification,
+  clearConstructor,
   getBun,
   getBunNotification,
   getIngredients,
@@ -72,8 +73,8 @@ export const BurgerConstructor: React.FC<BurgerConstructorProps> = () => {
         if (!bun) {
           notification?.notify('error', 'Булка обязательна!')
         } else {
-          if(!user) navigate('/login')
-          if(ids.length == 0) return
+          if (!user) navigate('/login')
+          if (ids.length == 0) return
           setVisible(true)
           new OrdersApi()
             .create(ids, withAuth())
@@ -93,7 +94,11 @@ export const BurgerConstructor: React.FC<BurgerConstructorProps> = () => {
 
   return (
     <>
-      <div className={`${styles.content} ${isActive ? styles.activeDrop : ''} mt-25 pl-4`} ref={drop}>
+      <div
+        data-cy="drop-target"
+        className={`${styles.content} ${isActive ? styles.activeDrop : ''} mt-25 pl-4`}
+        ref={drop}
+      >
         <div className={`${styles.top} mb-4`}>
           {bun ? (
             <BurgerElement type="top" item={bun} isLocked={true} />

@@ -36,7 +36,7 @@ export const IngredientDetails: React.FC<IngredientDetailsProps> = ({ item }) =>
         <div className={`${styles.preview} mb-4`}>
           <img width={480} height={240} src={item.image_large} alt={item.name} />
         </div>
-        <div className={`${styles.name} text text_type_main-medium mb-8`}>{item.name}</div>
+        <div data-cy="ingredient-name" className={`${styles.name} text text_type_main-medium mb-8`}>{item.name}</div>
         <ul className={`${styles.options}`}>
           {options.map(({ key, value, name }) => (
             <li className={styles.option} key={key}>

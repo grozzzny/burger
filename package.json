@@ -8,7 +8,8 @@
     "build": "tsc && vite build",
     "lint": "eslint . --max-warnings 0",
     "preview": "vite preview",
-    "test": "jest --rootDir ./ --testMatch '**/src/**/*.test.ts?(x)'"
+    "test": "jest --rootDir ./ --testMatch '**/src/**/*.test.ts?(x)'",
+    "cypress": "cypress open cache clear"
   },
   "dependencies": {
     "@babel/runtime": "7.24.8",
@@ -27,6 +28,7 @@
   },
   "devDependencies": {
     "@eslint/js": "9.7.0",
+    "@types/cypress": "^1.1.3",
     "@types/jest": "29.5.13",
     "@types/node": "20.14.12",
     "@types/react": "18.3.3",
@@ -34,6 +36,7 @@
     "@typescript-eslint/eslint-plugin": "7.17.0",
     "@typescript-eslint/parser": "7.17.0",
     "@vitejs/plugin-react": "4.3.1",
+    "cypress": "13.15.0",
     "eslint": "9.x",
     "eslint-plugin-react": "7.35.0",
     "eslint-plugin-react-hooks": "4.6.2",
