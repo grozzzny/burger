@@ -27,7 +27,7 @@ export const BurgerElement: React.FC<BurgerElementProps> = ({
   if (type === 'top') name += ' (верх)'
   if (type === 'bottom') name += ' (низ)'
   return (
-    <div ref={refItem} style={style} className={styles.element}>
+    <div data-cy={type} ref={refItem} style={style} className={styles.element}>
       <div className={styles.drag}>{isDrag && <DragIcon type="primary" />}</div>
       <ConstructorElement
         extraClass="ml-8"

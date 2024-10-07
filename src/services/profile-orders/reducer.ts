@@ -7,7 +7,7 @@ export type ProfileOrdersStore = {
   error: string | null
 }
 
-const initialState: ProfileOrdersStore = {
+export const initialState: ProfileOrdersStore = {
   status: WebsocketStatus.OFFLINE,
   orders: [],
   error: null

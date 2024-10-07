@@ -14,7 +14,7 @@ export const OrderDetails: React.FC<OrderDetailsProps> = () => {
 
   return (
     <div className={styles.order}>
-      <div className={`${styles.number} text text_type_digits-large mb-8`}>{orderId}</div>
+      <div data-cy="order-number" className={`${styles.number} text text_type_digits-large mb-8`}>{orderId}</div>
       <div className={`${styles.label} text text_type_main-medium mb-15`}>идентификатор заказа</div>
       <div className={`${styles.image} mb-15`}>
         <img width={120} height={120} src={imageDone} alt='done' />

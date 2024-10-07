@@ -38,7 +38,7 @@ export const IngredientItem: React.FC<IngredientItemProps> = ({ item, count, tog
 
   return (
     <>
-      <div ref={drag} style={{ opacity }} className={styles.card} onClick={() => toggleModal(item)}>
+      <div data-cy={item.type} ref={drag} style={{ opacity }} className={styles.card} onClick={() => toggleModal(item)}>
         {count && (
           <div className={styles.count}>
             <Counter count={count} size="default" />
@@ -52,7 +52,7 @@ export const IngredientItem: React.FC<IngredientItemProps> = ({ item, count, tog
           <CurrencyIcon type="primary" />
         </div>
         <div className={styles.name}>
-          <span className="text text_type_main-default">{item.name}</span>
+          <span data-cy="ingredient-name" className="text text_type_main-default">{item.name}</span>
         </div>
       </div>
     </>
