@@ -1,12 +1,12 @@
-FROM node:21.6.2
+FROM node:21.4.0
 
 WORKDIR /app
 
 COPY . .
 
-RUN npm install
-RUN npm run build
+RUN yarn
+RUN yarn build
 
 EXPOSE 4173
 
-CMD [ "npm", "run", "preview" ]
+CMD [ "yarn", "preview" ]
