@@ -8,7 +8,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint . --max-warnings 0",
-    "preview": "vite preview --port 4173",
+    "preview": "vite preview --port 4173 --host",
     "test": "jest --rootDir ./ --testMatch '**/src/**/*.test.ts?(x)'",
     "cypress": "cypress open cache clear"
   },
