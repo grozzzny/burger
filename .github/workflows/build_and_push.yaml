@@ -29,6 +29,9 @@ jobs:
           file: Dockerfile
           push: true
           tags: cr.yandex/${{ vars.ID_REGISTRY }}/burger:prod
+          build-args: |
+            API_URI=${{ vars.API_URI }}
+            WS_URI=${{ vars.WS_URI }}
 
   deploy:
     needs: build-and-push
